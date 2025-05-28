@@ -3,7 +3,7 @@ import { Grid, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/grid';
 import 'swiper/css/pagination';
-import { motion, useAnimation } from 'framer-motion';
+import { delay, motion, useAnimation } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 
 const GameSlider: React.FC = () => {
@@ -67,9 +67,8 @@ const GameSlider: React.FC = () => {
                             onAnimationStart={playSfx}
                             transition={{
                                 scale: { duration: 0.3, ease: 'easeOut' }, // quick scale
-                                y: { type: 'spring', stiffness: 500, damping: 20 }, // spring only for y
-                                opacity: { duration: 0.4 },
-                                delay: index * 0.1,
+                                y: { type: 'spring', stiffness: 500, damping: 20, delay: index * 0.07 }, // spring only for y
+                                opacity: { duration: 0.4, delay: index * 0.07 },
                             }}
                             onMouseEnter={playHoverSfx} 
                         />
