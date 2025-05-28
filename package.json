@@ -24,6 +24,7 @@
     "firebase": "^11.8.1",
     "framer-motion": "^12.15.0",
     "ionicons": "^7.4.0",
+    "phaser": "^3.90.0",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-router": "^5.3.4",
