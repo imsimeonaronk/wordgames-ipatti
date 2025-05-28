@@ -30,24 +30,38 @@ import '@ionic/react/css/display.css';
 /* import '@ionic/react/css/palettes/dark.class.css'; */
 import '@ionic/react/css/palettes/dark.system.css';
 
+/* Page */
+import NotFound from './pages/NotFound';
+
 /* Theme variables */
 import './theme/variables.css';
+import './theme/fonts.css';
+import useFontLoader from './hooks/fontLoader';
 
 setupIonicReact();
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonRouterOutlet>
-        <Route exact path="/home">
-          <Home />
-        </Route>
-        <Route exact path="/">
-          <Redirect to="/home" />
-        </Route>
-      </IonRouterOutlet>
-    </IonReactRouter>
-  </IonApp>
-);
+const App: React.FC = () => {
+    const fontsLoaded = useFontLoader();
+    
+    //Font load check
+    if (!fontsLoaded) {
+        return <div className="loading-overlay">Loading...</div>;
+    }
+
+    return(
+        <IonApp>
+            <IonReactRouter>
+                <IonRouterOutlet>
+                    <Route exact path="/*">
+                        <NotFound />
+                    </Route>
+                    <Route exact path="/">
+                        <Home />
+                    </Route>
+                </IonRouterOutlet>
+            </IonReactRouter>
+        </IonApp>
+    )
+};
 
 export default App;

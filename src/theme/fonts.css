@@ -1,0 +1,26 @@
+/* Fonts */
+
+/* NOTO SANS TAMIL */
+@font-face {
+    font-family: 'Noto Sans Tamil';
+    src: url('/assets/font/NotoSansTamil-Bold.eot');
+    src: url('/assets/font/NotoSansTamil-Bold.eot?#iefix') format('embedded-opentype'),
+        url('/assets/font/NotoSansTamil-Bold.woff2') format('woff2'),
+        url('/assets/font/NotoSansTamil-Bold.woff') format('woff'),
+        url('/assets/font/NotoSansTamil-Bold.ttf') format('truetype'),
+        url('/assets/font/NotoSansTamil-Bold.svg#NotoSansTamil-Bold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Noto Sans Tamil';
+    src: url('/assets/font/NotoSansTamil-Regular.eot');
+    src: url('/assets/font/NotoSansTamil-Regular.eot?#iefix') format('embedded-opentype'),
+        url('/assets/font/NotoSansTamil-Regular.woff2') format('woff2'),
+        url('/assets/font/NotoSansTamil-Regular.woff') format('woff'),
+        url('/assets/font/NotoSansTamil-Regular.ttf') format('truetype'),
+        url('/assets/font/NotoSansTamil-Regular.svg#NotoSansTamil-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
