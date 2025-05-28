@@ -2,7 +2,7 @@
 http://ionicframework.com/docs/theming/ */
 
 /* Background */
-.background{
+.background {
     width: 100vw;
     height: 100vh;
     background-image: url("./assets/image/background.png");
@@ -22,4 +22,167 @@ http://ionicframework.com/docs/theming/ */
     z-index: 1000;
     font-size: 1.5rem;
     color: #000;
+}
+
+/* Page Content */
+.page-content {
+    width: 100vw;
+    height: 100vh;
+}
+
+/* Header */
+.header {
+    width: 100%;
+    position: absolute;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header-box {
+    margin: 10px;
+    padding: 10px 10px;
+    width: calc(100% - 10px);
+    height: 80px;
+    background-color: #00000000;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.header-box-left {
+    width: 30%;
+    height: 100%;
+}
+
+.header-box-center {
+    width: 60%;
+    height: 100%;
+}
+
+.header-box-right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    width: 30%;
+    height: 100%;
+    gap: 1vw;
+}
+
+.header-button {
+    height: 85%;
+}
+
+/* Slide scroll */
+.slider-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    height: 100%;
+}
+
+.grid-icon {
+    width: 260px;
+    height: 260px;
+    object-fit: contain;
+    display: block;
+    margin: auto;
+}
+
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.swiper-slide:nth-child(6n+1),
+.swiper-slide:nth-child(6n+2),
+.swiper-slide:nth-child(6n+3) {
+    margin-bottom: 150px;
+}
+
+.swiper-pagination-bullet {
+    width: 16px;
+    height: 16px;
+    margin: 8px;
+    background: #999;
+    opacity: 0.7;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.swiper-pagination-bullet:hover {
+    transform: scale(1.3);
+}
+
+.swiper-pagination-bullet-active {
+    background: #007bff;
+    opacity: 1;
+}
+
+/* ----- Phones (Portrait & Small Screens) ----- */
+@media (max-width: 599px) {
+    .header-box-right {
+        gap: 5vw !important;
+    }
+
+    .header-button {
+        height: 60% !important;
+    }
+
+    .grid-icon {
+        width: 140px !important;
+        height: 140px !important;
+    }
+
+    .swiper-slide {
+        margin-bottom: 50px !important;
+    }
+
+    .swiper-slide:nth-child(6n+1),
+    .swiper-slide:nth-child(6n+2),
+    .swiper-slide:nth-child(6n+3) {
+        margin-bottom: 50px !important;
+    }
+
+    .swiper-pagination-bullet {
+        width: 10px !important;
+        height: 10px !important;
+    }
+}
+
+/* ----- Tablets (Portrait & Landscape) ----- */
+@media (min-width: 600px) and (max-width: 1023px) {
+    .header-box-right {
+        gap: 2vw !important;
+    }
+
+    .header-button {
+        height: 60% !important;
+    }
+
+    .grid-icon {
+        width: 120px !important;
+        height: 120px !important;
+    }
+
+    .swiper-slide {
+        margin-bottom: 40px !important;
+    }
+
+    .swiper-slide:nth-child(6n+1),
+    .swiper-slide:nth-child(6n+2),
+    .swiper-slide:nth-child(6n+3) {
+        margin-bottom: 40px !important;
+    }
+
+    .swiper-pagination-bullet {
+        width: 10px !important;
+        height: 10px !important;
+    }
 }
