@@ -11,7 +11,7 @@ const Loginboard: React.FC<LoginBoardType> = ({isOpen, onDismiss}) => {
                 </IonToolbar>
             </IonHeader>
             <IonContent className="ion-padding">
-                <p>Please do login to access full features.</p>
+                <p>Log in to unlock more features!<br/><br/>We only use your username and email to save your progress and performance.<br/><br/></p>
                 <IonButton className="spaced-button" expand="block" onClick={onDismiss} color={"danger"}>
                     Google
                 </IonButton>
