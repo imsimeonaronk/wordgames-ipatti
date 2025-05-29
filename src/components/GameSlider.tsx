@@ -5,10 +5,12 @@ import 'swiper/css/grid';
 import 'swiper/css/pagination';
 import { delay, motion, useAnimation } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
+import { useHistory } from 'react-router';
 
 const GameSlider: React.FC = () => {
     const icons = Array.from({ length: 12 }, (_, i) => `/assets/image/game-icon-${i + 1}.png`);
     const sfxPlayed = useRef(false);
+    const history = useHistory();
     
     useEffect(()=>{
         
@@ -26,6 +28,10 @@ const GameSlider: React.FC = () => {
         const audio = new Audio('./assets/audio/sfx/boing.mp3'); // replace with your path
         audio.volume = 0.2;
         audio.play();
+    }
+
+    const clickIcon = ()=> {
+        history.push("/game");
     }
 
     return (
@@ -71,6 +77,7 @@ const GameSlider: React.FC = () => {
                                 opacity: { duration: 0.4, delay: index * 0.07 },
                             }}
                             onMouseEnter={playHoverSfx} 
+                            onClick={clickIcon}
                         />
                     </SwiperSlide>
                 ))}

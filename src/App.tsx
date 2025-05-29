@@ -32,6 +32,7 @@ import '@ionic/react/css/palettes/dark.system.css';
 
 /* Page */
 import NotFound from './pages/NotFound';
+import Game from './pages/Game';
 
 /* Component */
 import useFontLoader from './hooks/fontLoader';
@@ -39,7 +40,6 @@ import useFontLoader from './hooks/fontLoader';
 /* Theme variables */
 import './theme/variables.css';
 import './theme/fonts.css';
-
 
 setupIonicReact();
 
@@ -60,6 +60,9 @@ const App: React.FC = () => {
                     </Route>
                     <Route exact path="/">
                         <Home />
+                    </Route>
+                    <Route exact path="/game">
+                        <Game />
                     </Route>
                 </IonRouterOutlet>
             </IonReactRouter>

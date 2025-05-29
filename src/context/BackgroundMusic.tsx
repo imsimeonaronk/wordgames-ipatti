@@ -13,12 +13,12 @@ export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         audioRef.current = audio;
 
         const tryPlay = () => {
-            audio.play().catch(() => console.log('Autoplay blocked'));
+            audio.play().then(()=>setIsPlaying(true)).catch(() => console.log('Autoplay blocked'));
         };
         tryPlay();
 
         const resumeOnClick = () => {
-            if (audio.paused) audio.play();
+            if (audio.paused) audio.play().then(()=>setIsPlaying(true));
             window.removeEventListener('click', resumeOnClick);
         };
         window.addEventListener('click', resumeOnClick);
@@ -26,11 +26,12 @@ export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         const pauseAudio = () => {
             if (!audio.paused) {
                 audio.pause();
+                setIsPlaying(false);
             }
         };
 
         const resumeAudio = () => {
-            audio.play().catch(() => console.log('User interaction needed to resume audio'));
+            audio.play().then(()=>setIsPlaying(true)).catch(() => console.log('User interaction needed to resume audio'));
         };
 
         const handleVisibilityChange = () => {
@@ -44,6 +45,7 @@ export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
         return () => {
             audio.pause();
+            setIsPlaying(false);
             window.removeEventListener('click', resumeOnClick);
             window.removeEventListener('blur', pauseAudio);
             window.removeEventListener('focus', resumeAudio);

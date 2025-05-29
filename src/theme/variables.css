@@ -97,6 +97,16 @@ http://ionicframework.com/docs/theming/ */
     margin-bottom: 20px;
 }
 
+/* Phaser Game */
+.phaser-game{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
 /* Slide scroll */
 .slider-wrapper {
     display: flex;
