@@ -3,9 +3,10 @@ import { Grid, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/grid';
 import 'swiper/css/pagination';
-import { delay, motion, useAnimation } from 'framer-motion';
-import { useEffect, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
+import { useEffect, useRef } from 'react';
 import { useHistory } from 'react-router';
+import { ssSetItem } from '../utils/SessionStorage';
 
 const GameSlider: React.FC = () => {
     const icons = Array.from({ length: 12 }, (_, i) => `/assets/image/game-icon-${i + 1}.png`);
@@ -30,7 +31,8 @@ const GameSlider: React.FC = () => {
         audio.play();
     }
 
-    const clickIcon = ()=> {
+    const clickIcon = (index:number)=> {
+        ssSetItem("selected-game",(index + 1).toString());
         history.push("/game");
     }
 
@@ -77,7 +79,7 @@ const GameSlider: React.FC = () => {
                                 opacity: { duration: 0.4, delay: index * 0.07 },
                             }}
                             onMouseEnter={playHoverSfx} 
-                            onClick={clickIcon}
+                            onClick={()=>clickIcon(index)}
                         />
                     </SwiperSlide>
                 ))}
