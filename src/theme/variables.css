@@ -74,6 +74,11 @@ http://ionicframework.com/docs/theming/ */
 
 .header-button {
     height: 85%;
+    cursor: pointer;
+}
+
+.page-logo{
+    height: 85%;
 }
 
 .spaced-button{
@@ -96,6 +101,7 @@ http://ionicframework.com/docs/theming/ */
     object-fit: contain;
     display: block;
     margin: auto;
+    cursor: pointer;
 }
 
 .swiper-slide {

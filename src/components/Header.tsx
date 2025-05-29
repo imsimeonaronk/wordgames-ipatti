@@ -2,6 +2,7 @@ import { useState } from "react";
 import Button from "./Button";
 import Loginboard from "./Loginboard";
 import Leaderboard from "./Leaderboard";
+import { motion } from "framer-motion";
 
 const Header: React.FC = ()=> {
     const [openLB, setOpenLB] = useState(false);
@@ -28,7 +29,15 @@ const Header: React.FC = ()=> {
     return(
         <div className="header">
             <div className="header-box">
-                <div className="header-box-left"></div>
+                <div className="header-box-left">
+                    <motion.img
+                        src="/assets/image/page-logo.png"
+                        className="page-logo"
+                        initial={{ scale: 0.2, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        transition={{ duration: 0.5, ease: 'easeInOut', delay: 0.1}}
+                    />
+                </div>
                 <div className="header-box-center"></div>
                 <div className="header-box-right">
                     <Button Src="./assets/image/leaderboardbtn.png" Click={onClickLeaderboard} AnimDelay={0.6}/>
