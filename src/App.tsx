@@ -33,12 +33,14 @@ import '@ionic/react/css/palettes/dark.system.css';
 /* Page */
 import NotFound from './pages/NotFound';
 
+/* Component */
+import useFontLoader from './hooks/fontLoader';
+import BackgroundMusic from './components/BackgroundMusic';
+
 /* Theme variables */
 import './theme/variables.css';
 import './theme/fonts.css';
-import useFontLoader from './hooks/fontLoader';
-import Loginboard from './components/Loginboard';
-import Leaderboard from './components/Leaderboard';
+
 
 setupIonicReact();
 
@@ -53,6 +55,7 @@ const App: React.FC = () => {
     return(
         <IonApp>
             <IonReactRouter>
+                <BackgroundMusic />
                 <IonRouterOutlet>
                     <Route exact path="/*">
                         <NotFound />
