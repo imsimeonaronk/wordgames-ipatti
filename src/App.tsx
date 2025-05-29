@@ -37,6 +37,8 @@ import NotFound from './pages/NotFound';
 import './theme/variables.css';
 import './theme/fonts.css';
 import useFontLoader from './hooks/fontLoader';
+import Loginboard from './components/Loginboard';
+import Leaderboard from './components/Leaderboard';
 
 setupIonicReact();
 
