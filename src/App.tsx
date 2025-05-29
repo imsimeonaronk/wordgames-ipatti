@@ -35,7 +35,6 @@ import NotFound from './pages/NotFound';
 
 /* Component */
 import useFontLoader from './hooks/fontLoader';
-import BackgroundMusic from './components/BackgroundMusic';
 
 /* Theme variables */
 import './theme/variables.css';
@@ -55,7 +54,6 @@ const App: React.FC = () => {
     return(
         <IonApp>
             <IonReactRouter>
-                <BackgroundMusic />
                 <IonRouterOutlet>
                     <Route exact path="/*">
                         <NotFound />

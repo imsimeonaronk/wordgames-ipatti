@@ -3,6 +3,7 @@ import Button from "./Button";
 import Loginboard from "./Loginboard";
 import Leaderboard from "./Leaderboard";
 import { motion } from "framer-motion";
+import MusicButton from "./MusicButton";
 
 const Header: React.FC = ()=> {
     const [openLB, setOpenLB] = useState(false);
@@ -26,6 +27,11 @@ const Header: React.FC = ()=> {
         setOpenLogin(false);
     }
 
+    /* Music */
+    const onClickMusic = ()=>{
+        
+    }
+
     return(
         <div className="header">
             <div className="header-box">
@@ -40,6 +46,7 @@ const Header: React.FC = ()=> {
                 </div>
                 <div className="header-box-center"></div>
                 <div className="header-box-right">
+                    <MusicButton Src="" Click={onClickMusic} AnimDelay={1.0}/>
                     <Button Src="./assets/image/leaderboardbtn.png" Click={onClickLeaderboard} AnimDelay={0.6}/>
                     <Button Src="./assets/image/usericonbtn.png" Click={onClickUser} AnimDelay={0.2}/>
                 </div>
