@@ -75,16 +75,24 @@ class Boot extends Phaser.Scene{
         this.scene.remove(Scenes.Boot);
     }
 
+    private onscenedestroy(){
+        
+    }
+
     private sceneevent(){
         this.events.once(Phaser.Scenes.Events.SHUTDOWN, ()=>{
             this.onsceneclear();
         });
 
-        this.events.once(Phaser.Scenes.Events.PAUSE, ()=>{
+        this.events.once(Phaser.Scenes.Events.DESTROY, ()=>{
+            this.onscenedestroy();
+        });
+
+        this.events.on(Phaser.Scenes.Events.PAUSE, ()=>{
             this.onscenepause();
         });
 
-        this.events.once(Phaser.Scenes.Events.RESUME, ()=>{
+        this.events.on(Phaser.Scenes.Events.RESUME, ()=>{
             this.onsceneresume();
         });
     }

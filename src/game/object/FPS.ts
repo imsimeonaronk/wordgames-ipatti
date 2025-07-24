@@ -1,12 +1,11 @@
+import { Gvar } from "../utils/Gvar";
+
 class FpsText extends Phaser.GameObjects.Text {
-
-    private thisDebug: boolean = true;
-
     constructor(scene:Phaser.Scene) {
-        super(scene, 0, 0, '', { color: 'red', fontSize: '2rem' });
+        super(scene, 0, 0, '', { color: 'red', fontSize: '20px' });
         scene.add.existing(this)
         this.setOrigin(0)
-        this.setVisible(this.thisDebug);
+        this.setVisible(Gvar.debug);
     }
 
     public update() {
