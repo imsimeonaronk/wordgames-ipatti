@@ -1,4 +1,4 @@
-export const Scenes={
+export const Scenes: any={
     Boot: "BootScene",
     Orientation: "OrientationScene",
     Preload: "PreloadScene",

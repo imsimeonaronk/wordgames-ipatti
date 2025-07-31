@@ -1,5 +1,6 @@
 import { ssGetItem } from "../../utils/SessionStorage";
 import FpsText from "../object/FPS";
+import FlatPreloadBar from "../object/Preloader";
 import { Gvar } from "../utils/Gvar";
 import { Scenes } from "../utils/Scenes";
 
@@ -8,6 +9,8 @@ class Boot extends Phaser.Scene{
     private sceneClose: boolean = false;
     private sceneName: string = Scenes.Boot;
     private fpsText: FpsText | undefined;
+
+    private preloaderBar: FlatPreloadBar | undefined;
 
     constructor(){
         super({
@@ -23,7 +26,11 @@ class Boot extends Phaser.Scene{
     }
 
     preload(){
+        this.load.path = "assets/data/";
+        this.load.json('game-data',`game-${Gvar.GameData.Id}.json`);
 
+        this.load.path = "assets/image/";
+        this.load.image("ipatti-logo","ipatti_logo.png");
     }
 
     create(){
@@ -43,7 +50,28 @@ class Boot extends Phaser.Scene{
     }
 
     private createscene(){
-        
+        this.preloaderBar = new FlatPreloadBar(this);
+        this.preloaderBar.setXY(Gvar.centerX, Math.floor(Gvar.height * 0.8));
+        this.preloadlistener();
+    }
+
+    private preloadlistener(){
+        this.load.on('progress', (value:any)=>{
+            this.preloaderBar!.progressValue = Math.floor(value * 1);
+            this.preloaderBar!.updateValue();
+        });
+                    
+        this.load.on('fileprogress', (file:any)=>{
+            
+        });
+
+        this.load.on('loaderror', (file:any)=>{
+
+        });
+
+        this.load.on('complete', ()=>{ 
+            this.movetoscene(Scenes.Preload);
+        });
     }
 
     private movetoscene(sceneName:string){
