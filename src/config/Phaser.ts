@@ -1,5 +1,15 @@
 import Phaser from "phaser";
 import Boot from "../game/scene/Boot";
+import Preload from "../game/scene/Preload";
+import Game1 from "../game/scene/Game1";
+import Game2 from "../game/scene/Game2";
+import Game3 from "../game/scene/Game3";
+import Game4 from "../game/scene/Game4";
+import Game5 from "../game/scene/Game5";
+import Game6 from "../game/scene/Game6";
+import Game7 from "../game/scene/Game7";
+import Game8 from "../game/scene/Game8";
+import Game9 from "../game/scene/Game9";
 
 const gameWidth = window.innerWidth //* window.devicePixelRatio;
 const gameHeight = window.innerHeight //* window.devicePixelRatio;
@@ -17,6 +27,16 @@ export const PhaserGameConfig: Phaser.Types.Core.GameConfig = {
     seed: [ (Date.now() * Math.random()).toString() ],
     scene: [
         Boot,
+        Preload,
+        Game1,
+        Game2,
+        Game3,
+        Game4,
+        Game5,
+        Game6,
+        Game7,
+        Game8,
+        Game9
     ],
     render: {
         pixelArt: false,
