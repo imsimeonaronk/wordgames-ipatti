@@ -27,7 +27,7 @@ class Game9 extends Phaser.Scene{
     }
 
     create(){
-        console.log("Preload scene created");
+        console.log("Game9 scene created");
         this.fpsText = new FpsText(this);
     }
 
