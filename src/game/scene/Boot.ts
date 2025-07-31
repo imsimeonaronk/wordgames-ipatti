@@ -1,3 +1,4 @@
+import { ssGetItem } from "../../utils/SessionStorage";
 import FpsText from "../object/FPS";
 import { Gvar } from "../utils/Gvar";
 import { Scenes } from "../utils/Scenes";
@@ -27,7 +28,7 @@ class Boot extends Phaser.Scene{
 
     create(){
         console.log("Boot scene created");
-
+        console.log("Game loaded: "+ Gvar.GameData.Id);
         this.fpsText = new FpsText(this);
     }
 
