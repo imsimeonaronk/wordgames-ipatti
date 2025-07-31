@@ -1,0 +1,46 @@
+{
+    "TASK1": {
+        "LEFT": [
+            {
+                "TEXT": "",
+                "IMAGE": "",
+                "AUDIO": ""
+            },
+            {
+                "TEXT": "",
+                "IMAGE": "",
+                "AUDIO": ""
+            },
+            {
+                "TEXT": "",
+                "IMAGE": "",
+                "AUDIO": ""
+            }
+        ],
+        "RIGHT": [
+            {
+                "TEXT": "",
+                "IMAGE": "",
+                "AUDIO": ""
+            },
+            {
+                "TEXT": "",
+                "IMAGE": "",
+                "AUDIO": ""
+            },
+            {
+                "TEXT": "",
+                "IMAGE": "",
+                "AUDIO": ""
+            }
+        ],
+        "LEFT-BOX-SHAPE": "square",
+        "RIGHT-BOX-SHAPE": "rect",
+        "BOX-SCALE": 1.0,
+        "LETTER-SCALE": 0.8,
+        "V-SPACE": 0.03,
+        "TITLE": "",
+        "TITLE-AUDIO": "",
+        "PLAY-CONNECT-AUDIO": true
+    }
+}

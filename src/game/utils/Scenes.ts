@@ -11,4 +11,7 @@ export const Scenes={
     Game7: "Game7Scene",
     Game8: "Game8Scene",
     Game9: "Game9Scene",
+    Game10: "Game10Scene",
+    Game11: "Game11Scene",
+    Game12: "Game12Scene",
 }

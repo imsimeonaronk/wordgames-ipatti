@@ -10,6 +10,9 @@ import Game6 from "../game/scene/Game6";
 import Game7 from "../game/scene/Game7";
 import Game8 from "../game/scene/Game8";
 import Game9 from "../game/scene/Game9";
+import Game10 from "../game/scene/Game10";
+import Game11 from "../game/scene/Game11";
+import Game12 from "../game/scene/Game12";
 
 const gameWidth = window.innerWidth //* window.devicePixelRatio;
 const gameHeight = window.innerHeight //* window.devicePixelRatio;
@@ -36,7 +39,10 @@ export const PhaserGameConfig: Phaser.Types.Core.GameConfig = {
         Game6,
         Game7,
         Game8,
-        Game9
+        Game9,
+        Game10,
+        Game11,
+        Game12
     ],
     render: {
         pixelArt: false,
