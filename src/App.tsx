@@ -40,11 +40,31 @@ import useFontLoader from './hooks/fontLoader';
 /* Theme variables */
 import './theme/variables.css';
 import './theme/fonts.css';
+import { useEffect } from 'react';
+import { FireBase } from './service/Firebase';
 
 setupIonicReact();
 
 const App: React.FC = () => {
     const fontsLoaded = useFontLoader();
+
+    useEffect(()=>{
+        
+        // Initialize Firebase & Google
+        const initializeFirebase = async () => {
+            try {
+                await FireBase.Init().then(() => {
+                    console.log("Firebase initialized");
+                }).catch((error) => {
+                    console.log("Error initializing Firebase:", error);
+                });
+            } catch (error) {
+                console.error('Fetch initializing Firebase:', error);
+            }
+        };
+        initializeFirebase();
+
+    });
     
     //Font load check
     if (!fontsLoaded) {
