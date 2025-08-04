@@ -32,16 +32,39 @@ import '@ionic/react/css/palettes/dark.system.css';
 
 /* Page */
 import NotFound from './pages/NotFound';
+import Game from './pages/Game';
+
+/* Component */
+import useFontLoader from './hooks/fontLoader';
 
 /* Theme variables */
 import './theme/variables.css';
 import './theme/fonts.css';
-import useFontLoader from './hooks/fontLoader';
+import { useEffect } from 'react';
+import { FireBase } from './service/Firebase';
 
 setupIonicReact();
 
 const App: React.FC = () => {
     const fontsLoaded = useFontLoader();
+
+    useEffect(()=>{
+        
+        // Initialize Firebase & Google
+        const initializeFirebase = async () => {
+            try {
+                await FireBase.Init().then(() => {
+                    console.log("Firebase initialized");
+                }).catch((error) => {
+                    console.log("Error initializing Firebase:", error);
+                });
+            } catch (error) {
+                console.error('Fetch initializing Firebase:', error);
+            }
+        };
+        initializeFirebase();
+
+    });
     
     //Font load check
     if (!fontsLoaded) {
@@ -57,6 +80,9 @@ const App: React.FC = () => {
                     </Route>
                     <Route exact path="/">
                         <Home />
+                    </Route>
+                    <Route exact path="/game">
+                        <Game />
                     </Route>
                 </IonRouterOutlet>
             </IonReactRouter>

@@ -41,7 +41,7 @@ http://ionicframework.com/docs/theming/ */
 }
 
 .header-box {
-    margin: 10px;
+    margin: 5px;
     padding: 10px 10px;
     width: calc(100% - 10px);
     height: 80px;
@@ -53,12 +53,12 @@ http://ionicframework.com/docs/theming/ */
 }
 
 .header-box-left {
-    width: 30%;
+    width: 40%;
     height: 100%;
 }
 
 .header-box-center {
-    width: 60%;
+    width: 10%;
     height: 100%;
 }
 
@@ -66,14 +66,45 @@ http://ionicframework.com/docs/theming/ */
     display: flex;
     flex-direction: row;
     align-items: center;
+    align-content: center;
     justify-content: flex-end;
-    width: 30%;
+    width: 50%;
     height: 100%;
     gap: 1vw;
 }
 
+.music-button {
+    height: 100%;
+}
+
+.music-button-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 .header-button {
     height: 85%;
+    cursor: pointer;
+}
+
+.page-logo {
+    height: 85%;
+}
+
+.spaced-button {
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+/* Phaser Game */
+.phaser-game{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
 }
 
 /* Slide scroll */
@@ -91,6 +122,7 @@ http://ionicframework.com/docs/theming/ */
     object-fit: contain;
     display: block;
     margin: auto;
+    cursor: pointer;
 }
 
 .swiper-slide {
