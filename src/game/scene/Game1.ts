@@ -1,4 +1,4 @@
-import { lsGetItem, lsSetItem } from "../../utils/LocalStorage";
+import { lsGetItem, lsRemoveItem, lsSetItem } from "../../utils/LocalStorage";
 import { ssGetItem } from "../../utils/SessionStorage";
 import FpsText from "../object/FPS";
 import { Gvar } from "../utils/Gvar";
@@ -45,14 +45,15 @@ class Game1 extends Phaser.Scene{
     private createscene(){
         const data = this.cache.json.get("game-data");
         const taskNumber = this.generatetasknumber(Object.keys(data).length);
-        console.log(taskNumber)
+        const taskData = data[`TASK${taskNumber}`];
+        
     }
 
-    private generatetasknumber(totalTask:number){
+    private generatetasknumber(taskLength:number){
         const playedTask = lsGetItem(`Game-${Gvar.GameData.Id}-level`);
         let currentTask = 1;
         if(!playedTask){
-            const totalTask = Array.from({length: 10},(_,i)=> i+1);
+            const totalTask = Array.from({length: taskLength},(_,i)=> i+1);
             const filtered = totalTask.filter((n:any) => n!= currentTask);
             lsSetItem(`Game-${Gvar.GameData.Id}-level`,JSON.stringify(filtered));
         }else{
@@ -60,6 +61,10 @@ class Game1 extends Phaser.Scene{
             currentTask = savedTask.splice(0,1)[0];
             const filtered = savedTask.filter((n:any) => n!= currentTask);
             lsSetItem(`Game-${Gvar.GameData.Id}-level`,JSON.stringify(filtered));
+            if(!currentTask){ // Loop if there is no task left
+                lsRemoveItem(`Game-${Gvar.GameData.Id}-level`);
+                currentTask = this.generatetasknumber(taskLength);
+            }
         }
         return currentTask
     }
