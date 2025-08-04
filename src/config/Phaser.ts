@@ -19,7 +19,7 @@ const gameHeight = window.innerHeight //* window.devicePixelRatio;
 
 export const PhaserGameConfig: Phaser.Types.Core.GameConfig = {
     type: Phaser.CANVAS,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#fffef9',
     parent: 'phaser-game',
     scale: {
         autoCenter: Phaser.Scale.CENTER_BOTH,

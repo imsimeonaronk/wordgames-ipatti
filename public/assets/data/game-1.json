@@ -2,11 +2,13 @@
     "TASK1":{
         "IMAGE": "",
         "IMAGE-AUDIO": "",
-        "SENTENCE": "",
+        "SENTENCE": "இளைஞர்கள் _ அடக்குகிறார்கள்.",
         "SENTENCE-AUDIO": "",
-        "ANSWER": "",
+        "ANSWER": "காளைகளை",
         "OPTIONS": [
-
+            "காளைகளை",
+            "காளையில்",
+            "காளைகள்"
         ],        
         "OPTIONS-AUDIO": [
             

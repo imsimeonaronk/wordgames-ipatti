@@ -7,6 +7,7 @@ import { useLocation } from 'react-router';
 import { Gvar } from '../game/utils/Gvar';
 import { ResizePhaserGame } from '../game/utils/Resize';
 import { Capacitor } from '@capacitor/core';
+import Header from '../components/Header';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -48,12 +49,12 @@ const Game: React.FC = () => {
         }
     }, [location]);
     
-
     return (
         <>
             {gameId > 0 ? (
                 <IonPage className="background">
                     <div className="page-content">
+                        <Header />
                         <PhaserGame onGameReady={gameReady} canvas={'phaser-game'}/>
                     </div>
                 </IonPage>
