@@ -29,7 +29,140 @@ class Preload extends Phaser.Scene{
     }
 
     preload(){
-
+        //Preload JSON Data
+        const gameData = this.cache.json.get('game-data');
+        Object.keys(gameData).forEach((element:any)=>{
+            const taskData = gameData[element];
+            switch(Gvar.GameData.Id){
+                case 1:
+                    console.log("Preload Game 1 Data");
+                    this.loadimage(taskData["IMAGE"]);
+                    this.loadaudio(taskData["IMAGE-AUDIO"]);
+                    this.loadaudio(taskData["SENTENCE-AUDIO"]);
+                    if(taskData["OPTIONS-AUDIO"]){
+                        taskData["OPTIONS-AUDIO"].forEach((option:any) => {
+                            this.loadaudio(taskData["OPTIONS-AUDIO"][option]);
+                        });
+                    }
+                break;
+                case 2:
+                    console.log("Preload Game 2 Data");
+                    this.loadimage(taskData["IMAGE"]);
+                    this.loadaudio(taskData["IMAGE-AUDIO"]);
+                    this.loadaudio(taskData["ENG-WORD-AUDIO"]);
+                    if(taskData["OPTIONS-AUDIO"]){
+                        taskData["OPTIONS-AUDIO"].forEach((option:any) => {
+                            this.loadaudio(taskData["OPTIONS-AUDIO"][option]);
+                        });
+                    }
+                break;
+                case 3:
+                    console.log("Preload Game 3 Data");
+                    if(taskData["LEFT"]){
+                        taskData["LEFT"].forEach((option:any) => {
+                            this.loadimage(option["IMAGE"]);
+                            this.loadaudio(option["AUDIO"]);
+                        });
+                    }
+                    if(taskData["RIGHT"]){
+                        taskData["RIGHT"].forEach((option:any) => {
+                            this.loadimage(option["IMAGE"]);
+                            this.loadaudio(option["AUDIO"]);
+                        });
+                    }
+                break;
+                case 4:
+                    console.log("Preload Game 4 Data");
+                    this.loadaudio(taskData["WORD-AUDIO"]);
+                    if(taskData["OPTIONS-AUDIO"]){
+                        taskData["OPTIONS-AUDIO"].forEach((option:any) => {
+                            this.loadaudio(taskData["OPTIONS-AUDIO"][option]);
+                        });
+                    }
+                    if(taskData["OPTIONS-IMAGE"]){
+                        taskData["OPTIONS-IMAGE"].forEach((option:any) => {
+                            this.loadimage(taskData["OPTIONS-IMAGE"][option]);
+                        });
+                    }
+                break;
+                case 5:
+                    console.log("Preload Game 5 Data");
+                    this.loadaudio(taskData["SENTENCE-AUDIO"]);
+                    this.loadaudio(taskData["ENGLISH-SENTENCE-AUDIO"]);
+                break;
+                case 6:
+                    console.log("Preload Game 6 Data");
+                    this.loadimage(taskData["IMAGE"]);
+                    this.loadaudio(taskData["IMAGE-AUDIO"]);
+                    this.loadaudio(taskData["SENTENCE-AUDIO"]);
+                    if(taskData["OPTIONS-AUDIO"]){
+                        taskData["OPTIONS-AUDIO"].forEach((option:any) => {
+                            this.loadaudio(taskData["OPTIONS-AUDIO"][option]);
+                        });
+                    }
+                break;
+                case 7:
+                    console.log("Preload Game 7 Data");
+                    this.loadaudio(taskData["TEXT-AUDIO"]);
+                    if(taskData["OPTIONS-AUDIO"]){
+                        taskData["OPTIONS-AUDIO"].forEach((option:any) => {
+                            this.loadaudio(taskData["OPTIONS-AUDIO"][option]);
+                        });
+                    }
+                break;
+                case 8:
+                    console.log("Preload Game 8 Data");
+                    if(taskData["ANSWER-AUDIO"]){
+                        taskData["ANSWER-AUDIO"].forEach((option:any) => {
+                            this.loadaudio(taskData["ANSWER-AUDIO"][option]);
+                        });
+                    }
+                    if(taskData["IMAGE"]){
+                        taskData["IMAGE"].forEach((option:any) => {
+                            this.loadimage(taskData["IMAGE"][option]);
+                        });
+                    }
+                break;
+                case 9:
+                    console.log("Preload Game 9 Data");
+                    if(taskData["OPTIONS-AUDIO"]){
+                        taskData["OPTIONS-AUDIO"].forEach((option:any) => {
+                            this.loadaudio(taskData["OPTIONS-AUDIO"][option]);
+                        });
+                    }
+                    if(taskData["ANSWER-AUDIO"]){
+                        taskData["ANSWER-AUDIO"].forEach((option:any) => {
+                            this.loadaudio(taskData["ANSWER-AUDIO"][option]);
+                        });
+                    }
+                break;
+                case 10:
+                    console.log("Preload Game 10 Data");
+                    if(taskData["WORDS-AUDIO"]){
+                        taskData["WORDS-AUDIO"].forEach((option:any) => {
+                            this.loadaudio(taskData["WORDS-AUDIO"][option]);
+                        });
+                    }
+                break;
+                case 11:
+                    console.log("Preload Game 11 Data");
+                    this.loadaudio(taskData["AUDIO"]);
+                break;
+                case 12:
+                    console.log("Preload Game 12 Data");
+                    if(taskData["ANSWER-AUDIO"]){
+                        taskData["ANSWER-AUDIO"].forEach((option:any) => {
+                            this.loadaudio(taskData["ANSWER-AUDIO"][option]);
+                        });
+                    }
+                    if(taskData["IMAGE"]){
+                        taskData["IMAGE"].forEach((option:any) => {
+                            this.loadimage(taskData["IMAGE"][option]);
+                        });
+                    }
+                break;
+            }
+        });
     }
 
     create(){
@@ -58,6 +191,18 @@ class Preload extends Phaser.Scene{
 
         this.initanim();
         this.preloadlistener();
+    }
+
+    private loadaudio(name:string){
+        if(!name) return;
+        this.load.path = "assets/audio/game/";
+        this.load.audio(Gvar.fileextension(name),name);
+    }
+
+    private loadimage(name:string){
+        if(!name) return;
+        this.load.path = "assets/image/game/";
+        this.load.image(Gvar.fileextension(name),name);
     }
 
     private initanim(){
