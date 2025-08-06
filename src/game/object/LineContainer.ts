@@ -4,23 +4,28 @@ import WordBox from "./WordBox";
 interface LineParams{
     sentence: string,
     finalsentence: string,
-    answer: string
+    answer: string,
+    onComplete: Function
 }
 
 class LineContainer extends Phaser.GameObjects.Container{
 
     public space: number = Math.floor(Gvar.width * 0.01);
+    private tweensList: Phaser.Tweens.Tween [] | undefined;
+    private params: LineParams | undefined;
 
     constructor(scene:Phaser.Scene, params:LineParams){
         super(scene);
         scene.add.existing(this);
-        this.init(params);
+        this.params = params;
+        this.init();
+        this.reset();
     }
 
-    private init(params:LineParams){
+    private init(){
         //Split sentence into array
-        let sentencearr = params.sentence.split(" ");
-        let finalsentencearr = params.finalsentence.split(" ");
+        let sentencearr = this.params!.sentence.split(" ");
+        let finalsentencearr = this.params!.finalsentence.split(" ");
         let words:string[][] = [];
         for(let i=0; i<sentencearr.length; i++){
             words.push([sentencearr[i], finalsentencearr[i]]);
@@ -44,6 +49,48 @@ class LineContainer extends Phaser.GameObjects.Container{
             if(lineword.getData('box-empty')){
                 this.setData("box-empty-bounds",lineword.setData('box-bounds'))
             }
+        }
+    }
+
+    public animate(){
+        this.reset(); // Reset child before animate
+        this.list.forEach((element:any,index:number)=>{
+            const yTween = this.scene.tweens.add({
+                targets: element,
+                y: (element.y - 5),
+                yoyo: true,
+                delay: 500 + (200 * index),
+                duration: 500
+            });
+            this.tweensList?.push(yTween);
+            const alphaTween = this.scene.tweens.add({
+                targets: element,
+                alpha: 1,
+                delay: 500 + (200 * index),
+                duration: 500,
+                onComplete: ()=>{
+                    if((index+1) === this.list.length){
+                        this.params?.onComplete();
+                    }
+                }
+            });
+            this.tweensList?.push(alphaTween);
+        });
+    }
+
+    private reset(){
+        this.resetTween();
+        this.list.forEach((element:any)=>{
+            element.setAlpha(0);
+        });
+    }
+
+    private resetTween(){
+        if(this.tweensList){
+            this.tweensList.forEach((element:Phaser.Tweens.Tween)=>{
+                element.stop();
+                element.destroy();
+            });
         }
     }
 }

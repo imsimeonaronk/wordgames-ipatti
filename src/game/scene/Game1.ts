@@ -67,25 +67,39 @@ class Game1 extends Phaser.Scene{
 
         //Game container
         this.gameContainer = this.add.container();
+        let lineContainer, optionsContainer;
 
         //Line
-        let lineContainer = new LineContainer(this,{
+        lineContainer = new LineContainer(this,{
             sentence: taskData["SENTENCE"],
             finalsentence: finalsentence,
-            answer: taskData["ANSWER"]
+            answer: taskData["ANSWER"],
+            onComplete: ()=>{
+                Gvar.consolelog("Line Animate end");
+                optionsContainer!.animate();
+            }
         });
         lineContainer.x = Gvar.centerX - lineContainer.getBounds().width * 0.5 + lineContainer.space;
         lineContainer.y = Math.floor(Gvar.height * 0.25) + lineContainer.space //Gvar.centerY + lineContainer.space - lineContainer.getBounds().height * 0.5 ;
         this.gameContainer.add(lineContainer);
 
         //Options
-        let optionsContainer = new OptionsContainer(this,{
+        optionsContainer = new OptionsContainer(this,{
             shape: "rectangle",
-            text: taskData["OPTIONS"]
+            text: taskData["OPTIONS"],
+            onComplete: ()=>{
+                Gvar.consolelog("Option Animate end");
+                this.interactivelistener(true);
+            }
         })
         optionsContainer.x = Gvar.centerX - optionsContainer.contentWidth 
         optionsContainer.y = Math.floor(Gvar.height * 0.72) //Math.floor(Gvar.height * 0.75)
         this.gameContainer.add(optionsContainer);
+
+        // Start game
+        setTimeout(()=>{
+            lineContainer.animate();
+        },500)
     }
 
     private generatetasknumber(taskLength:number){
@@ -106,6 +120,11 @@ class Game1 extends Phaser.Scene{
             }
         }
         return currentTask
+    }
+
+    private interactivelistener(flag:boolean){
+        const lineContainer: Phaser.GameObjects.Container = this.gameContainer?.getAt(0) as Phaser.GameObjects.Container;
+        const optionContainer: Phaser.GameObjects.Container = this.gameContainer?.getAt(1) as Phaser.GameObjects.Container;
     }
 
     private movetoscene(sceneName:string){
