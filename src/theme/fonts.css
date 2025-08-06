@@ -24,3 +24,27 @@
     font-weight: normal;
     font-style: normal;
 }
+
+@font-face {
+    font-family: 'Noto Sans Tamil';
+    src: url('/assets/font/NotoSansTamil-Medium.eot');
+    src: url('/assets/font/NotoSansTamil-Medium.eot?#iefix') format('embedded-opentype'),
+        url('/assets/font/NotoSansTamil-Medium.woff2') format('woff2'),
+        url('/assets/font/NotoSansTamil-Medium.woff') format('woff'),
+        url('/assets/font/NotoSansTamil-Medium.ttf') format('truetype'),
+        url('/assets/font/NotoSansTamil-Medium.svg#NotoSansTamil-Medium') format('svg');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Noto Sans Tamil';
+    src: url('/assets/font/NotoSansTamil-SemiBold.eot');
+    src: url('/assets/font/NotoSansTamil-SemiBold.eot?#iefix') format('embedded-opentype'),
+        url('/assets/font/NotoSansTamil-SemiBold.woff2') format('woff2'),
+        url('/assets/font/NotoSansTamil-SemiBold.woff') format('woff'),
+        url('/assets/font/NotoSansTamil-SemiBold.ttf') format('truetype'),
+        url('/assets/font/NotoSansTamil-SemiBold.svg#NotoSansTamil-SemiBold') format('svg');
+    font-weight: 600;
+    font-style: normal;
+}

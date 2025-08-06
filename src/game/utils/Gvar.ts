@@ -29,4 +29,9 @@ export const Gvar:any = {
         const isTablet = /(ipad|tablet|(android(?!.*mobile))|(windows(?!.*phone)(.*touch))|kindle|playbook|silk|(puffin(?!.*(IP|AP|WP))))/.test(userAgent);
         return isTablet;
     },
+    consolelog:(message:string)=>{
+        if(Gvar.debug){
+            console.log(message)
+        }
+    }
 }

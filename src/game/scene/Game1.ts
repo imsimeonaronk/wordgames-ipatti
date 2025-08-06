@@ -1,6 +1,9 @@
 import { lsGetItem, lsRemoveItem, lsSetItem } from "../../utils/LocalStorage";
 import { ssGetItem } from "../../utils/SessionStorage";
+import Center from "../object/Center";
 import FpsText from "../object/FPS";
+import LineContainer from "../object/LineContainer";
+import OptionsContainer from "../object/OptionsContainer";
 import { Gvar } from "../utils/Gvar";
 import { Scenes } from "../utils/Scenes";
 
@@ -9,6 +12,8 @@ class Game1 extends Phaser.Scene{
     private sceneClose: boolean = false;
     private sceneName: string = Scenes.Game1;
     private fpsText: FpsText | undefined;
+
+    private gameContainer: Phaser.GameObjects.Container | undefined;
 
     constructor(){
         super({
@@ -19,7 +24,6 @@ class Game1 extends Phaser.Scene{
     //Basic Function
     init(){
         this.initscene();
-        this.createscene();
         this.sceneevent();
     }
 
@@ -28,7 +32,9 @@ class Game1 extends Phaser.Scene{
     }
 
     create(){
-        console.log("Game1 scene created");
+        Gvar.consolelog("Game1 scene created");
+        this.createscene();
+        const center = new Center(this);
         this.fpsText = new FpsText(this);
     }
 
@@ -47,6 +53,39 @@ class Game1 extends Phaser.Scene{
         const taskNumber = this.generatetasknumber(Object.keys(data).length);
         const taskData = data[`TASK${taskNumber}`];
         
+        //Task details
+        Gvar.consolelog("Task :"+taskNumber)
+        Gvar.consolelog(taskData)
+        
+        //Final sentence
+        const sentence:string = taskData["SENTENCE"].replace("_",taskData["ANSWER"]);
+        let finalsentence = sentence.trim();
+        if(!finalsentence.endsWith(".")){
+            finalsentence = finalsentence + ".";
+        }
+        Gvar.consolelog(finalsentence)
+
+        //Game container
+        this.gameContainer = this.add.container();
+
+        //Line
+        let lineContainer = new LineContainer(this,{
+            sentence: taskData["SENTENCE"],
+            finalsentence: finalsentence,
+            answer: taskData["ANSWER"]
+        });
+        lineContainer.x = Gvar.centerX - lineContainer.getBounds().width * 0.5 + lineContainer.space;
+        lineContainer.y = Math.floor(Gvar.height * 0.25) + lineContainer.space //Gvar.centerY + lineContainer.space - lineContainer.getBounds().height * 0.5 ;
+        this.gameContainer.add(lineContainer);
+
+        //Options
+        let optionsContainer = new OptionsContainer(this,{
+            shape: "rectangle",
+            text: taskData["OPTIONS"]
+        })
+        optionsContainer.x = Gvar.centerX - optionsContainer.contentWidth 
+        optionsContainer.y = Math.floor(Gvar.height * 0.72) //Math.floor(Gvar.height * 0.75)
+        this.gameContainer.add(optionsContainer);
     }
 
     private generatetasknumber(taskLength:number){

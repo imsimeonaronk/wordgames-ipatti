@@ -19,6 +19,24 @@ const useFontLoader = (): boolean => {
             {
                 family: 'Noto Sans Tamil',
                 sources: [
+                    '/assets/font/native/NotoSansTamil-SemiBold.woff2',
+                    '/assets/font/native/NotoSansTamil-SemiBold.woff',
+                    '/assets/font/native/NotoSansTamil-SemiBold.ttf',
+                ],
+                params: { weight: '600' }
+            },
+            {
+                family: 'Noto Sans Tamil',
+                sources: [
+                    '/assets/font/native/NotoSansTamil-Medium.woff2',
+                    '/assets/font/native/NotoSansTamil-Medium.woff',
+                    '/assets/font/native/NotoSansTamil-Medium.ttf',
+                ],
+                params: { weight: '500' }
+            },
+            {
+                family: 'Noto Sans Tamil',
+                sources: [
                     '/assets/font/native/NotoSansTamil-Regular.woff2',
                     '/assets/font/native/NotoSansTamil-Regular.woff',
                     '/assets/font/native/NotoSansTamil-Regular.ttf',

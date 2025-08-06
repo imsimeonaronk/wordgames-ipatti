@@ -1,0 +1,51 @@
+import { Gvar } from "../utils/Gvar";
+import WordBox from "./WordBox";
+
+interface LineParams{
+    sentence: string,
+    finalsentence: string,
+    answer: string
+}
+
+class LineContainer extends Phaser.GameObjects.Container{
+
+    public space: number = Math.floor(Gvar.width * 0.01);
+
+    constructor(scene:Phaser.Scene, params:LineParams){
+        super(scene);
+        scene.add.existing(this);
+        this.init(params);
+    }
+
+    private init(params:LineParams){
+        //Split sentence into array
+        let sentencearr = params.sentence.split(" ");
+        let finalsentencearr = params.finalsentence.split(" ");
+        let words:string[][] = [];
+        for(let i=0; i<sentencearr.length; i++){
+            words.push([sentencearr[i], finalsentencearr[i]]);
+        }
+        // Create box view
+        let xpos = 0, ypos = 0;
+        for(let i=0;i<words.length;i++){
+            let word = words[i];
+            let lineword:WordBox = new WordBox(this.scene,{type:"line-box", text: word[1], currenttext: word[0]});
+            lineword.x = xpos + lineword.getData('box-bounds').width * 0.5;
+            lineword.y = ypos;
+            lineword.setData('bdata',[i, word]);
+            xpos = lineword.x + lineword.getData('box-bounds').width * 0.5 + Math.floor(this.space * 0.5);
+            //New Line
+            if(xpos > Math.floor(Gvar.width * 0.85)){
+                xpos = 0;
+                ypos = ypos + lineword.getData('box-bounds').height + Math.floor(this.space * 0.6);
+            }
+            this.add(lineword);
+            // Set Data
+            if(lineword.getData('box-empty')){
+                this.setData("box-empty-bounds",lineword.setData('box-bounds'))
+            }
+        }
+    }
+}
+
+export default LineContainer;

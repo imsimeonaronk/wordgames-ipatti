@@ -9,7 +9,7 @@ export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     useEffect(() => {
         const audio = new Audio('/assets/audio/background-music.mp3');
         audio.loop = true;
-        audio.volume = 0.4;
+        audio.volume = 0.25;
         audioRef.current = audio;
 
         const tryPlay = () => {
