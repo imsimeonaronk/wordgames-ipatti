@@ -29,6 +29,7 @@ const Game: React.FC = () => {
         hasRun.current = true;
 
         // Check device
+        Gvar.orientation = screen.orientation.type;
         Gvar.platformData.type = Capacitor.getPlatform();
         Gvar.isDesktop = ((Capacitor.isNativePlatform() === false) && (isPlatform("desktop") === true));
         Gvar.isMobileWeb = ((Capacitor.isNativePlatform() === false) && (isPlatform("mobileweb") === true));

@@ -77,7 +77,7 @@ class Boot extends Phaser.Scene{
     private movetoscene(sceneName:string){
         if(!this.sceneClose){
             this.sceneClose = true;
-            if(Gvar.orientation == "portrait")
+            if(Gvar.orientation.includes("portrait"))
                 sceneName = Scenes.Orientation
             this.time.addEvent({
                 delay: Gvar.sceneMoveDelay,

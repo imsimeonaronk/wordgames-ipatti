@@ -15,19 +15,25 @@ class WordBox extends Phaser.GameObjects.Container{
     }
     
     private init(params:WordBoxParsms){
-        const fontsize = Math.min(Gvar.width * 0.035, Gvar.height * 0.035)
+        const fontsize = Math.min(Gvar.width * 0.05, Gvar.height * 0.05) * Gvar.scaleRatio
         let label, line, shape;
-        let shapewidth, shapeheight;
+        
+        let shapewidth, shapeheight, shaperadius;
+        let shapestroke
 
         switch(params.type){
             case "line-box":
                 label = this.scene.add.text(0, 0, params.text.toString(), TextStyle["word-box"]).setOrigin(0.5);
                 label.setFontSize(fontsize);
 
-                shape = this.scene.add.rectangle(0, 0, (label.displayWidth + 5), 100)
+                shapewidth = (label.displayWidth + 5);
+                shapeheight = Math.floor(fontsize * 1.5);
+                shapestroke = Math.min(shapewidth, shapeheight) / 12;
+
+                shape = this.scene.add.rectangle(0, 0, shapewidth, shapeheight)
                 shape.setFillStyle(0x67a6b6).setOrigin(0.5).setVisible(false);
 
-                line = this.scene.add.rectangle(0, 0, (label.displayWidth + 5), 10)
+                line = this.scene.add.rectangle(0, 0, shapewidth, shapestroke)
                 line.setFillStyle(0x67a6b6).setOrigin(0.5).setVisible(false);
                 line.y = shape.y + shape.height * 0.5
 
@@ -51,14 +57,16 @@ class WordBox extends Phaser.GameObjects.Container{
                 label.setFontSize(fontsize);
                 label.setFill("#ffffff");
 
-                shapewidth = Math.min(Math.floor(Gvar.width * 0.3), Math.floor(Gvar.height * 0.3))//(label.displayWidth + 5);
-                shapeheight = 100;
+                shapewidth = Math.min(Math.floor(Gvar.width * 0.4 * Gvar.scaleRatio), Math.floor(Gvar.height * 0.4 * Gvar.scaleRatio))//(label.displayWidth + 5);
+                shapeheight = Math.floor(fontsize * 1.5);
+                shaperadius = Math.min(shapewidth, shapeheight) / 10;
+                shapestroke = Math.min(shapewidth, shapeheight) / 20;
 
                 shape = this.scene.add.graphics();
                 shape.fillStyle(0xa22626);
-                shape.lineStyle(5,0x000000);
-                shape.fillRoundedRect((-1 * shapewidth * 0.5), (-1 * shapeheight * 0.5), shapewidth, shapeheight, 20);
-                shape.strokeRoundedRect((-1 * shapewidth * 0.5), (-1 * shapeheight * 0.5), shapewidth, shapeheight, 20);
+                shape.lineStyle(shapestroke,0x000000);
+                shape.fillRoundedRect((-1 * shapewidth * 0.5), (-1 * shapeheight * 0.5), shapewidth, shapeheight, shaperadius);
+                shape.strokeRoundedRect((-1 * shapewidth * 0.5), (-1 * shapeheight * 0.5), shapewidth, shapeheight, shaperadius);
 
                 this.add(shape);
                 this.add(label);
