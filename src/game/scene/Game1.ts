@@ -1,5 +1,5 @@
 import { lsGetItem, lsRemoveItem, lsSetItem } from "../../utils/LocalStorage";
-import { ssGetItem } from "../../utils/SessionStorage";
+import Sounds from "../libs/Sounds";
 import Center from "../object/Center";
 import FpsText from "../object/FPS";
 import LineContainer from "../object/LineContainer";
@@ -36,8 +36,13 @@ class Game1 extends Phaser.Scene{
 
     create(){
         Gvar.consolelog("Game1 scene created");
+        window.Sounds = new Sounds(this);
+        window.Sounds.load('general');
+
         this.createscene();
+
         const center = new Center(this);
+
         this.fpsText = new FpsText(this);
     }
 
@@ -162,7 +167,7 @@ class Game1 extends Phaser.Scene{
                 });
                 element.on('dragstart',(pointer:any, dragX:any, dragY:any)=>{
                     if(!this.startGame) return;
-                    element.data.values.dropped = false;
+                    window.Sounds.play("general","pick",()=>{});
                 }, this);
                 element.on('drag',(pointer:any, dragX:any, dragY:any)=>{
                     if(!this.startGame) return;
@@ -180,10 +185,14 @@ class Game1 extends Phaser.Scene{
                     let dpdata:WordBox = dropZone.getData('box-text');
                     let eldata:WordBox = element.getData('box-text');
                     if(dpdata == eldata){
-                        this.startGame = false // Disable game start
+                        window.Sounds.play("general","correct",()=>{
+                            this.startGame = false // Disable game start
+                        });
                         dropZone.reform(()=>{
                             this.checkresult();
                         });
+                    }else{
+                        window.Sounds.play("general","wrong",()=>{});
                     }
                 }, this);
             }else{

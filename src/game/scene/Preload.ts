@@ -1,6 +1,6 @@
-import { ssGetItem } from "../../utils/SessionStorage";
 import FpsText from "../object/FPS";
 import FlatPreloadBar from "../object/Preloader";
+import { Assets } from "../utils/Assets";
 import { Gvar } from "../utils/Gvar";
 import { Scenes } from "../utils/Scenes";
 
@@ -29,13 +29,44 @@ class Preload extends Phaser.Scene{
     }
 
     preload(){
+        
+        //Load Images
+        this.load.path = "assets/images/";
+        for(const key in Assets.Images){
+            this.load.image(Assets.Images[key][0],Assets.Images[key][1])
+        }
+
+        //Load Sprites
+        this.load.path = "assets/sprites/";
+        for(const key in Assets.Sprites){
+            this.load.atlas(Assets.Sprites[key][0],Assets.Sprites[key][1],Assets.Sprites[key][2])
+        }
+
+        //Load Fonts
+        this.load.path = "assets/fonts/bitmap/";
+        for(const key in Assets.Fonts){
+            this.load.bitmapFont(Assets.Fonts[key][0],Assets.Fonts[key][1],Assets.Fonts[key][2])
+        }
+
+        //Load Sounds
+        this.load.path = "assets/audio/sfx/";
+        for(const key in Assets.Sounds){
+            this.load.audio(Assets.Sounds[key][0],Assets.Sounds[key][1],Assets.Sounds[key][2]);
+        }
+
+        //Load Videos
+        this.load.path = "assets/videos/";
+        for(const key in Assets.Videos){
+            this.load.video(Assets.Videos[key][0],Assets.Videos[key][1],Assets.Videos[key][2])
+        }
+
         //Preload JSON Data
         const gameData = this.cache.json.get('game-data');
         Object.keys(gameData).forEach((element:any)=>{
             const taskData = gameData[element];
             switch(Gvar.GameData.Id){
                 case 1:
-                    console.log("Preload Game 1 Data");
+                    Gvar.consolelog("Preload Game 1 Data");
                     this.loadimage(taskData["IMAGE"]);
                     this.loadaudio(taskData["IMAGE-AUDIO"]);
                     this.loadaudio(taskData["SENTENCE-AUDIO"]);
@@ -46,7 +77,7 @@ class Preload extends Phaser.Scene{
                     }
                 break;
                 case 2:
-                    console.log("Preload Game 2 Data");
+                    Gvar.consolelog("Preload Game 2 Data");
                     this.loadimage(taskData["IMAGE"]);
                     this.loadaudio(taskData["IMAGE-AUDIO"]);
                     this.loadaudio(taskData["ENG-WORD-AUDIO"]);
@@ -57,7 +88,7 @@ class Preload extends Phaser.Scene{
                     }
                 break;
                 case 3:
-                    console.log("Preload Game 3 Data");
+                    Gvar.consolelog("Preload Game 3 Data");
                     if(taskData["LEFT"]){
                         taskData["LEFT"].forEach((option:any) => {
                             this.loadimage(option["IMAGE"]);
@@ -72,7 +103,7 @@ class Preload extends Phaser.Scene{
                     }
                 break;
                 case 4:
-                    console.log("Preload Game 4 Data");
+                    Gvar.consolelog("Preload Game 4 Data");
                     this.loadaudio(taskData["WORD-AUDIO"]);
                     if(taskData["OPTIONS-AUDIO"]){
                         taskData["OPTIONS-AUDIO"].forEach((option:any) => {
@@ -86,12 +117,12 @@ class Preload extends Phaser.Scene{
                     }
                 break;
                 case 5:
-                    console.log("Preload Game 5 Data");
+                    Gvar.consolelog("Preload Game 5 Data");
                     this.loadaudio(taskData["SENTENCE-AUDIO"]);
                     this.loadaudio(taskData["ENGLISH-SENTENCE-AUDIO"]);
                 break;
                 case 6:
-                    console.log("Preload Game 6 Data");
+                    Gvar.consolelog("Preload Game 6 Data");
                     this.loadimage(taskData["IMAGE"]);
                     this.loadaudio(taskData["IMAGE-AUDIO"]);
                     this.loadaudio(taskData["SENTENCE-AUDIO"]);
@@ -102,7 +133,7 @@ class Preload extends Phaser.Scene{
                     }
                 break;
                 case 7:
-                    console.log("Preload Game 7 Data");
+                    Gvar.consolelog("Preload Game 7 Data");
                     this.loadaudio(taskData["TEXT-AUDIO"]);
                     if(taskData["OPTIONS-AUDIO"]){
                         taskData["OPTIONS-AUDIO"].forEach((option:any) => {
@@ -111,7 +142,7 @@ class Preload extends Phaser.Scene{
                     }
                 break;
                 case 8:
-                    console.log("Preload Game 8 Data");
+                    Gvar.consolelog("Preload Game 8 Data");
                     if(taskData["ANSWER-AUDIO"]){
                         taskData["ANSWER-AUDIO"].forEach((option:any) => {
                             this.loadaudio(taskData["ANSWER-AUDIO"][option]);
@@ -124,7 +155,7 @@ class Preload extends Phaser.Scene{
                     }
                 break;
                 case 9:
-                    console.log("Preload Game 9 Data");
+                    Gvar.consolelog("Preload Game 9 Data");
                     if(taskData["OPTIONS-AUDIO"]){
                         taskData["OPTIONS-AUDIO"].forEach((option:any) => {
                             this.loadaudio(taskData["OPTIONS-AUDIO"][option]);
@@ -137,7 +168,7 @@ class Preload extends Phaser.Scene{
                     }
                 break;
                 case 10:
-                    console.log("Preload Game 10 Data");
+                    Gvar.consolelog("Preload Game 10 Data");
                     if(taskData["WORDS-AUDIO"]){
                         taskData["WORDS-AUDIO"].forEach((option:any) => {
                             this.loadaudio(taskData["WORDS-AUDIO"][option]);
@@ -145,11 +176,11 @@ class Preload extends Phaser.Scene{
                     }
                 break;
                 case 11:
-                    console.log("Preload Game 11 Data");
+                    Gvar.consolelog("Preload Game 11 Data");
                     this.loadaudio(taskData["AUDIO"]);
                 break;
                 case 12:
-                    console.log("Preload Game 12 Data");
+                    Gvar.consolelog("Preload Game 12 Data");
                     if(taskData["ANSWER-AUDIO"]){
                         taskData["ANSWER-AUDIO"].forEach((option:any) => {
                             this.loadaudio(taskData["ANSWER-AUDIO"][option]);
@@ -166,7 +197,7 @@ class Preload extends Phaser.Scene{
     }
 
     create(){
-        console.log("Preload scene created");
+        Gvar.consolelog("Preload scene created");
         this.fpsText = new FpsText(this);
     }
 
