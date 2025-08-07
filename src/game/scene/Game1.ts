@@ -1,6 +1,6 @@
 import { lsGetItem, lsRemoveItem, lsSetItem } from "../../utils/LocalStorage";
 import Sounds from "../libs/Sounds";
-import UpdateScore from "../libs/UserPlay";
+import { UpdateScore } from "../libs/UserPlay";
 import Center from "../object/Center";
 import FpsText from "../object/FPS";
 import LineContainer from "../object/LineContainer";
