@@ -15,9 +15,9 @@ class WordBox extends Phaser.GameObjects.Container{
     }
     
     private init(params:WordBoxParsms){
-        const fontsize = Math.min(Gvar.width * 0.05, Gvar.height * 0.05) * Gvar.scaleRatio
-        let label, line, shape;
-        
+        const fontsize = Math.floor(Math.min(Gvar.width * 0.05, Gvar.height * 0.05) * Gvar.scaleRatio)
+        let label, line, shape, emptylabel;
+        console.log(fontsize)
         let shapewidth, shapeheight, shaperadius;
         let shapestroke
 
@@ -25,6 +25,9 @@ class WordBox extends Phaser.GameObjects.Container{
             case "line-box":
                 label = this.scene.add.text(0, 0, params.text.toString(), TextStyle["word-box"]).setOrigin(0.5);
                 label.setFontSize(fontsize);
+
+                emptylabel = this.scene.add.text(0, 0, "?", TextStyle["word-box"]).setOrigin(0.5);
+                emptylabel.setFontSize(fontsize).setVisible(false);
 
                 shapewidth = (label.displayWidth + 5);
                 shapeheight = Math.floor(fontsize * 1.5);
@@ -40,16 +43,19 @@ class WordBox extends Phaser.GameObjects.Container{
                 this.add(shape);
                 this.add(line);
                 this.add(label);
+                this.add(emptylabel);
 
                 // Check empty box
                 if(params.currenttext == "_"){
-                    label.setText("?");
+                    label.setVisible(false);
+                    emptylabel.setVisible(true);
                     line.setVisible(true);
                 }
 
                 // Set Data
-                this.setData('box-empty',(params.currenttext == "_"));
+                this.setData('box-type',params.type);
                 this.setData('box-text',params.text.toString());
+                this.setData('box-empty',(params.currenttext == "_"));
                 this.setData('box-bounds',{width: shape.width, height: shape.height});
             break;
             case "option-box-rectangle":
@@ -72,11 +78,45 @@ class WordBox extends Phaser.GameObjects.Container{
                 this.add(label);
 
                 // Set Data
+                this.setData('box-type',params.type);
                 this.setData('box-text',params.text.toString());
                 this.setData('box-bounds',{width: shapewidth, height: shapeheight});
             break;
         }
     }
+
+    public reform(listener:Function){
+        const fontsize = Math.floor(Math.min(Gvar.width * 0.05, Gvar.height * 0.05) * Gvar.scaleRatio)
+        const boxtype = this.getData('box-type');
+        let label, emptylabel, line;
+
+        switch(boxtype){
+            case "line-box":
+                label = this.getAt(2) as Phaser.GameObjects.Text;
+                emptylabel = this.getAt(3) as Phaser.GameObjects.Text;
+                line = this.getAt(1) as Phaser.GameObjects.Rectangle;
+                line.setVisible(false);
+                emptylabel.setVisible(false);
+                label.setVisible(true);
+                this.animate(label, listener);
+            break;
+        }
+    }
+
+    private animate(obj:Phaser.GameObjects.GameObject, listener:Function){
+        if(!obj)return;
+        this.scene.tweens.add({
+            targets: obj,
+            scale: 1.2,
+            yoyo: true,
+            delay: 500,
+            duration: 500,
+            onComplete: ()=>{
+                listener();
+            }
+        });
+    }
+
 }
 
 export default WordBox;

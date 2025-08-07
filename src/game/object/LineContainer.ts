@@ -46,6 +46,7 @@ class LineContainer extends Phaser.GameObjects.Container{
             }
             this.add(lineword);
             // Set Data
+            lineword.setData('box-position',{x: lineword.x, y: lineword.y});
             if(lineword.getData('box-empty')){
                 this.setData("box-empty-bounds",lineword.setData('box-bounds'))
             }

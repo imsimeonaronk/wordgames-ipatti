@@ -4,6 +4,7 @@ import Center from "../object/Center";
 import FpsText from "../object/FPS";
 import LineContainer from "../object/LineContainer";
 import OptionsContainer from "../object/OptionsContainer";
+import WordBox from "../object/WordBox";
 import { Gvar } from "../utils/Gvar";
 import { Scenes } from "../utils/Scenes";
 
@@ -14,6 +15,8 @@ class Game1 extends Phaser.Scene{
     private fpsText: FpsText | undefined;
 
     private gameContainer: Phaser.GameObjects.Container | undefined;
+    private startGame: boolean = false;
+    private endGame: boolean = false;
 
     constructor(){
         super({
@@ -46,6 +49,8 @@ class Game1 extends Phaser.Scene{
     //Other Function
     private initscene(){
         this.sceneClose = false;
+        this.startGame = false;
+        this.endGame = false;
     }
 
     private createscene(){
@@ -89,6 +94,8 @@ class Game1 extends Phaser.Scene{
             text: taskData["OPTIONS"],
             onComplete: ()=>{
                 Gvar.consolelog("Option Animate end");
+                // Start game play
+                this.startGame = true;
                 this.interactivelistener(true);
             }
         })
@@ -125,6 +132,70 @@ class Game1 extends Phaser.Scene{
     private interactivelistener(flag:boolean){
         const lineContainer: Phaser.GameObjects.Container = this.gameContainer?.getAt(0) as Phaser.GameObjects.Container;
         const optionContainer: Phaser.GameObjects.Container = this.gameContainer?.getAt(1) as Phaser.GameObjects.Container;
+
+        //Drop Zone
+        lineContainer.iterate((element:any) => {
+            const isempty = element.getData("box-empty");
+            if(!isempty) return;
+            if(flag){
+                let bounds = element.getBounds();
+                element.setInteractive({
+                    hitArea: new Phaser.Geom.Rectangle((0),(0-bounds.height*0.5),bounds.width,bounds.height), 
+                    hitAreaCallback: Phaser.Geom.Rectangle.Contains,
+                    dropZone: true
+                });
+            }else{
+                element.setInteractive(false);
+                element.input.dropZone = false;
+            }
+        });
+
+        //Drag Zone
+        optionContainer.iterate((element:any) => {
+            if(flag){
+                let bounds = element.getBounds();
+                element.setInteractive({
+                    hitArea: new Phaser.Geom.Rectangle((0-bounds.width*0.5),(0-bounds.height*0.5),bounds.width,bounds.height), 
+                    hitAreaCallback: Phaser.Geom.Rectangle.Contains,
+                    draggable: true,
+                    useHandCursor: true 
+                });
+                element.on('dragstart',(pointer:any, dragX:any, dragY:any)=>{
+                    if(!this.startGame) return;
+                    element.data.values.dropped = false;
+                }, this);
+                element.on('drag',(pointer:any, dragX:any, dragY:any)=>{
+                    if(!this.startGame) return;
+                    element.setPosition(dragX, dragY);
+                    element.parentContainer.bringToTop(element);
+                }, this);
+                element.on('dragend',(pointer:any, dragX:any, dragY:any)=>{
+                    if(!this.startGame) return;
+                    let posdata = element.getData('box-position');
+                    element.x = posdata.x;
+                    element.y = posdata.y;
+                }, this);
+                element.on('drop',(pointer:any, dropZone:any)=>{
+                    if(!this.startGame) return;
+                    let dpdata:WordBox = dropZone.getData('box-text');
+                    let eldata:WordBox = element.getData('box-text');
+                    if(dpdata == eldata){
+                        this.startGame = false // Disable game start
+                        dropZone.reform(()=>{
+                            this.checkresult();
+                        });
+                    }
+                }, this);
+            }else{
+                element.setInteractive(false);
+                element.input.draggable = false;
+                element.input.cursor = 'default';
+            }
+        });
+    }
+
+    private checkresult(){
+        this.endGame = true;
     }
 
     private movetoscene(sceneName:string){

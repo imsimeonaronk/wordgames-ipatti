@@ -45,6 +45,8 @@ class OptionsContainer extends Phaser.GameObjects.Container{
                 }
             }
             this.add(box);
+            //Set data
+            box.setData('box-position',{x: box.x, y: box.y});
         }
     }
 
