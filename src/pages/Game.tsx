@@ -8,6 +8,7 @@ import { Gvar } from '../game/utils/Gvar';
 import { ResizePhaserGame } from '../game/utils/Resize';
 import { Capacitor } from '@capacitor/core';
 import Header from '../components/Header';
+import { CheckFirstVisit } from '../game/libs/UserPlay';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -27,6 +28,9 @@ const Game: React.FC = () => {
     useEffect(() => {
         if (hasRun.current) return;
         hasRun.current = true;
+
+        //User Visit
+        CheckFirstVisit();
 
         // Check device
         Gvar.orientation = screen.orientation.type;

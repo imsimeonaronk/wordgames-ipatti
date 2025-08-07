@@ -1,11 +1,16 @@
 import { FireBase } from "../../service/Firebase";
-import { lsGetItem, lsSetItem } from "../../utils/LocalStorage";
+import { lsGetItem, lsRemoveItem, lsSetItem } from "../../utils/LocalStorage";
 import { Gvar } from "../utils/Gvar";
 
 // Update score
 export function UpdateScore(){
     if(!Gvar.LoggedUser.name) return;
     FireBase.submitScore(Gvar.LoggedUser.name,1);
+    // Check user login
+    const flag = shouldPromptLogin();
+    if(flag){
+        
+    }
 }
 
 // Store user first visit
@@ -14,6 +19,10 @@ export function CheckFirstVisit(){
     if (!stored) {
         lsSetItem("firstVisit", new Date().toISOString());
     }
+}
+
+export function ResetFirstVisit(){
+    lsRemoveItem("firstVisit");
 }
 
 // Prompt login window to user
