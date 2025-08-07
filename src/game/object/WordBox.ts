@@ -16,8 +16,8 @@ class WordBox extends Phaser.GameObjects.Container{
     
     private init(params:WordBoxParsms){
         const fontsize = Math.floor(Math.min(Gvar.width * 0.05, Gvar.height * 0.05) * Gvar.scaleRatio)
+        const emptywidth = Math.min(Math.floor(Gvar.width * 0.4 * Gvar.scaleRatio), Math.floor(Gvar.height * 0.4 * Gvar.scaleRatio))//(label.displayWidth + 5);
         let label, line, shape, emptylabel;
-        console.log(fontsize)
         let shapewidth, shapeheight, shaperadius;
         let shapestroke
 
@@ -29,7 +29,7 @@ class WordBox extends Phaser.GameObjects.Container{
                 emptylabel = this.scene.add.text(0, 0, "?", TextStyle["word-box"]).setOrigin(0.5);
                 emptylabel.setFontSize(fontsize).setVisible(false);
 
-                shapewidth = (label.displayWidth + 5);
+                shapewidth = (params.currenttext == "_") ? emptywidth : (label.displayWidth + 5);
                 shapeheight = Math.floor(fontsize * 1.5);
                 shapestroke = Math.min(shapewidth, shapeheight) / 12;
 
@@ -63,7 +63,7 @@ class WordBox extends Phaser.GameObjects.Container{
                 label.setFontSize(fontsize);
                 label.setFill("#ffffff");
 
-                shapewidth = Math.min(Math.floor(Gvar.width * 0.4 * Gvar.scaleRatio), Math.floor(Gvar.height * 0.4 * Gvar.scaleRatio))//(label.displayWidth + 5);
+                shapewidth = emptywidth;
                 shapeheight = Math.floor(fontsize * 1.5);
                 shaperadius = Math.min(shapewidth, shapeheight) / 10;
                 shapestroke = Math.min(shapewidth, shapeheight) / 20;

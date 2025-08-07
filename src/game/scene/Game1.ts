@@ -77,7 +77,7 @@ class Game1 extends Phaser.Scene{
 
         //Game container
         this.gameContainer = this.add.container();
-        let lineContainer, optionsContainer;
+        let lineContainer, optionsContainer, sentenceContainer;
 
         //Line
         lineContainer = new LineContainer(this,{
@@ -92,6 +92,20 @@ class Game1 extends Phaser.Scene{
         lineContainer.x = Gvar.centerX - lineContainer.getBounds().width * 0.5 + lineContainer.space;
         lineContainer.y = Math.floor(Gvar.height * 0.25) + lineContainer.space //Gvar.centerY + lineContainer.space - lineContainer.getBounds().height * 0.5 ;
         this.gameContainer.add(lineContainer);
+
+        //Complete Line
+        sentenceContainer = new LineContainer(this,{
+            sentence: finalsentence,
+            finalsentence: finalsentence,
+            answer: taskData["ANSWER"],
+            onComplete: ()=>{
+                
+            }
+        });
+        sentenceContainer.setVisible(false);
+        sentenceContainer.x = Gvar.centerX - sentenceContainer.getBounds().width * 0.5 + sentenceContainer.space;
+        sentenceContainer.y = Math.floor(Gvar.height * 0.25) + sentenceContainer.space;
+        this.gameContainer.add(sentenceContainer);
 
         //Options
         optionsContainer = new OptionsContainer(this,{
@@ -111,6 +125,7 @@ class Game1 extends Phaser.Scene{
         // Start game
         setTimeout(()=>{
             lineContainer.animate();
+            sentenceContainer.animate();
         },500)
     }
 
@@ -136,7 +151,8 @@ class Game1 extends Phaser.Scene{
 
     private interactivelistener(flag:boolean){
         const lineContainer: Phaser.GameObjects.Container = this.gameContainer?.getAt(0) as Phaser.GameObjects.Container;
-        const optionContainer: Phaser.GameObjects.Container = this.gameContainer?.getAt(1) as Phaser.GameObjects.Container;
+        const sentenceContainer: Phaser.GameObjects.Container = this.gameContainer?.getAt(1) as Phaser.GameObjects.Container;
+        const optionContainer: Phaser.GameObjects.Container = this.gameContainer?.getAt(2) as Phaser.GameObjects.Container;
 
         //Drop Zone
         lineContainer.iterate((element:any) => {
@@ -189,7 +205,11 @@ class Game1 extends Phaser.Scene{
                             this.startGame = false // Disable game start
                         });
                         dropZone.reform(()=>{
-                            this.checkresult();
+                            setTimeout(()=>{
+                                sentenceContainer.setVisible(true);
+                                lineContainer.setVisible(false);
+                                this.checkresult();
+                            },500);
                         });
                     }else{
                         window.Sounds.play("general","wrong",()=>{});
