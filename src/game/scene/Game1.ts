@@ -1,5 +1,6 @@
 import { lsGetItem, lsRemoveItem, lsSetItem } from "../../utils/LocalStorage";
 import Sounds from "../libs/Sounds";
+import UpdateScore from "../libs/UserPlay";
 import Center from "../object/Center";
 import FpsText from "../object/FPS";
 import LineContainer from "../object/LineContainer";
@@ -17,6 +18,8 @@ class Game1 extends Phaser.Scene{
     private gameContainer: Phaser.GameObjects.Container | undefined;
     private startGame: boolean = false;
     private endGame: boolean = false;
+
+    private gameScore: number = 0;
 
     constructor(){
         super({
@@ -56,6 +59,7 @@ class Game1 extends Phaser.Scene{
         this.sceneClose = false;
         this.startGame = false;
         this.endGame = false;
+        this.gameScore = 0;
     }
 
     private createscene(){
@@ -225,6 +229,8 @@ class Game1 extends Phaser.Scene{
 
     private checkresult(){
         this.endGame = true;
+        this.gameScore ++; //Game Score increment
+        UpdateScore();
     }
 
     private movetoscene(sceneName:string){

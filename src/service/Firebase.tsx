@@ -12,7 +12,7 @@ import {
     signInWithEmailAndPassword,
     User
 } from 'firebase/auth';
-import { Firestore, getFirestore } from 'firebase/firestore';
+import { addDoc, collection, doc, Firestore, getDoc, getDocs, getFirestore, increment, limit, orderBy, query, serverTimestamp, setDoc, updateDoc } from 'firebase/firestore';
 import firebaseConfig from '../config/FireBase';
 
 class FireBaseService {
@@ -211,6 +211,36 @@ class FireBaseService {
         }
     };
 
+    // Scoreboard
+    public async submitScore(username: string, score: number) {
+        try {
+            const userRef = doc(this.db!, "leaderboard", username);
+            const docSnap = await getDoc(userRef);
+            if (docSnap.exists()) {
+                // Update the score using atomic increment
+                await updateDoc(userRef, {
+                    score: increment(score),
+                    updatedAt: serverTimestamp(),
+                });
+            } else {
+                // First time, create the document with initial score
+                await setDoc(userRef, {
+                    username,
+                    score,
+                    createdAt: serverTimestamp(),
+                });
+            }
+        } catch (error) {
+            console.error("Error updating score: ", error);
+        }
+    }
+
+    public async getTopScores(limitCount: number = 10) {
+        const leaderboardRef = collection(this.db!, "leaderboard");
+        const q = query(leaderboardRef, orderBy("score", "desc"), limit(limitCount));
+        const querySnapshot = await getDocs(q);
+        return querySnapshot.docs.map(doc => doc.data());
+    }
 }
 
 // Use this instance across your app
