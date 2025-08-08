@@ -3,7 +3,7 @@ export const Assets:any = {
         
     },
     Sprites:{
-        
+        "star": ["star-spr", "star.png", "star.json"],
     },
     Fonts:{
         //"brothers": ["brothers", "brothers.png", "brothers.xml"]

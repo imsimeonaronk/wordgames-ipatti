@@ -7,6 +7,7 @@ import LineContainer from "../object/LineContainer";
 import OptionsContainer from "../object/OptionsContainer";
 import WordBox from "../object/WordBox";
 import { Gvar } from "../utils/Gvar";
+import ExplodeParticle from "../utils/Particles";
 import { Scenes } from "../utils/Scenes";
 
 class Game1 extends Phaser.Scene{
@@ -18,6 +19,8 @@ class Game1 extends Phaser.Scene{
     private gameContainer: Phaser.GameObjects.Container | undefined;
     private startGame: boolean = false;
     private endGame: boolean = false;
+
+    private explodeParticle: ExplodeParticle | undefined;
 
     private gameScore: number = 0;
 
@@ -43,6 +46,9 @@ class Game1 extends Phaser.Scene{
         window.Sounds.load('general');
 
         this.createscene();
+
+        this.explodeParticle = new ExplodeParticle(this);
+        this.explodeParticle.init();
 
         const center = new Center(this);
 
@@ -200,12 +206,14 @@ class Game1 extends Phaser.Scene{
                     element.x = posdata.x;
                     element.y = posdata.y;
                 }, this);
-                element.on('drop',(pointer:any, dropZone:any)=>{
+                element.on('drop',(pointer:Phaser.Input.Pointer, dropZone:any)=>{
                     if(!this.startGame) return;
                     let dpdata:WordBox = dropZone.getData('box-text');
                     let eldata:WordBox = element.getData('box-text');
                     Gvar.consolelog(dpdata+"  -  "+eldata);
                     if(dpdata == eldata){
+                        console.log(pointer)
+                        this.explodeParticle?.explode(pointer);
                         window.Sounds.play("general","correct",()=>{
                             this.startGame = false // Disable game start
                         });
@@ -258,6 +266,7 @@ class Game1 extends Phaser.Scene{
     }
 
     private onsceneclear(){
+        this.explodeParticle?.clear();
         this.sound.stopAll();
     }
 

@@ -37,7 +37,7 @@ class Preload extends Phaser.Scene{
         }
 
         //Load Sprites
-        this.load.path = "assets/sprites/";
+        this.load.path = "assets/sprite/";
         for(const key in Assets.Sprites){
             this.load.atlas(Assets.Sprites[key][0],Assets.Sprites[key][1],Assets.Sprites[key][2])
         }
@@ -55,7 +55,7 @@ class Preload extends Phaser.Scene{
         }
 
         //Load Videos
-        this.load.path = "assets/videos/";
+        this.load.path = "assets/video/";
         for(const key in Assets.Videos){
             this.load.video(Assets.Videos[key][0],Assets.Videos[key][1],Assets.Videos[key][2])
         }
