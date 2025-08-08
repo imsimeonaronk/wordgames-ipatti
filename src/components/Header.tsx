@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "./Button";
 import Loginboard from "./Loginboard";
 import Leaderboard from "./Leaderboard";
 import { motion } from "framer-motion";
 import MusicButton from "./MusicButton";
+import { useUserLogin } from "../context/UserLogin";
 
 const Header: React.FC = ()=> {
     const [openLB, setOpenLB] = useState(false);
     const [openLogin, setOpenLogin] = useState(false);
+    const { user } = useUserLogin();
 
     /* Leaderboard User */
     const onClickLeaderboard = ()=> {
@@ -32,6 +34,10 @@ const Header: React.FC = ()=> {
         
     }
 
+    useEffect(()=>{
+        
+    },[]);
+
     return(
         <div className="header">
             <div className="header-box">
@@ -48,7 +54,16 @@ const Header: React.FC = ()=> {
                 <div className="header-box-right">
                     <MusicButton Src="" Click={onClickMusic} AnimDelay={1.0}/>
                     <Button Src="./assets/image/leaderboardbtn.png" Click={onClickLeaderboard} AnimDelay={0.6}/>
-                    <Button Src="./assets/image/usericonbtn.png" Click={onClickUser} AnimDelay={0.2}/>
+                    {
+                        !user ? 
+                        <>
+                            <Button Src="./assets/image/usericonbtn.png" Click={onClickUser} AnimDelay={0.2}/>
+                        </>
+                        :
+                        <>
+                            <Button Src={user.photoURL!} Click={onClickUser} AnimDelay={0.2}/>
+                        </>
+                    }
                 </div>
                 <Loginboard isOpen={openLogin} onDismiss={onLoginDismiss}/>
                 <Leaderboard isOpen={openLB} onDismiss={onLBDismiss}/>
