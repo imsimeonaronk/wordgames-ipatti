@@ -2,6 +2,7 @@ import { IonModal, IonButton, IonContent, IonHeader, IonTitle, IonToolbar } from
 import LoginBoardType from "../interface/Loginboard";
 import { FireBase } from "../service/Firebase";
 import { useUserLogin } from "../context/UserLogin";
+import { Gvar } from "../game/utils/Gvar";
 
 const Loginboard: React.FC<LoginBoardType> = ({isOpen, onDismiss}) => {
     const { user, login, logout } = useUserLogin();
@@ -9,12 +10,17 @@ const Loginboard: React.FC<LoginBoardType> = ({isOpen, onDismiss}) => {
     const signIn = ()=>{
         FireBase.logIn((success, user)=>{
             if(success){
+                //Login Hook
                 login({
                     uid: user.uid,
                     email: user.email,
                     displayName: user.displayName,
                     photoURL: user.photoURL,
                 });
+                // Update value to the Gvar
+                Gvar.LoggedUser.name = user.displayName;
+                Gvar.LoggedUser.email = user.email;
+                //Dismiss panel
                 onDismiss();
             }
         });
@@ -22,7 +28,9 @@ const Loginboard: React.FC<LoginBoardType> = ({isOpen, onDismiss}) => {
 
     const signOut = ()=>{
         FireBase.logOut(()=>{
+            //Logout Hook
             logout();
+            //Dismiss panel
             onDismiss();
         });
     }

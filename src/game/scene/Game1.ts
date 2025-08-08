@@ -204,6 +204,7 @@ class Game1 extends Phaser.Scene{
                     if(!this.startGame) return;
                     let dpdata:WordBox = dropZone.getData('box-text');
                     let eldata:WordBox = element.getData('box-text');
+                    Gvar.consolelog(dpdata+"  -  "+eldata);
                     if(dpdata == eldata){
                         window.Sounds.play("general","correct",()=>{
                             this.startGame = false // Disable game start

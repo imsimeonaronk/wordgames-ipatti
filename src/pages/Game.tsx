@@ -9,6 +9,7 @@ import { ResizePhaserGame } from '../game/utils/Resize';
 import { Capacitor } from '@capacitor/core';
 import Header from '../components/Header';
 import { CheckFirstVisit } from '../game/libs/UserPlay';
+import { useUserLogin } from '../context/UserLogin';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -20,6 +21,7 @@ const Game: React.FC = () => {
     const query = useQuery();
     const queryGameID = parseInt(query.get("gameID") || "0");
     const hasRun = useRef(false);
+    const { user } = useUserLogin();
 
     const gameReady = ()=>{
         ResizePhaserGame(Gvar.platformData.isNative);

@@ -6,11 +6,6 @@ import { Gvar } from "../utils/Gvar";
 export function UpdateScore(){
     if(!Gvar.LoggedUser.name) return;
     FireBase.submitScore(Gvar.LoggedUser.name,1);
-    // Check user login
-    const flag = shouldPromptLogin();
-    if(flag){
-        
-    }
 }
 
 // Store user first visit
