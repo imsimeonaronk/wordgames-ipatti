@@ -15,7 +15,7 @@ const Leaderboard: React.FC<LeaderBoardType> = ({ isOpen, onDismiss }) => {
         fetchScores();
     }, []);
 
-    
+
     return (
         <IonModal isOpen={isOpen} onDidDismiss={onDismiss}>
             <IonHeader>
@@ -29,16 +29,32 @@ const Leaderboard: React.FC<LeaderBoardType> = ({ isOpen, onDismiss }) => {
                 </IonToolbar>
             </IonHeader>
             <IonContent className="ion-padding">
-                <ul>
-                    {
-                        scores.map((entry, index) => (
-                            <li key={index}>
-                                {index + 1}. {entry.username} - {entry.score}
-                            </li>
-                        ))
-                    }
-                </ul>
+                <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                    <thead>
+                        <tr>
+                            <th style={{ border: "1px solid #ccc", padding: "8px" }}>Rank</th>
+                            <th style={{ border: "1px solid #ccc", padding: "8px" }}>Username</th>
+                            <th style={{ border: "1px solid #ccc", padding: "8px" }}>Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {scores.map((entry, index) => (
+                            <tr key={index}>
+                                <td style={{ border: "1px solid #ccc", padding: "8px", textAlign: "center" }}>
+                                    {index + 1}
+                                </td>
+                                <td style={{ border: "1px solid #ccc", padding: "8px", textAlign: "center" }}>
+                                    {entry.username}
+                                </td>
+                                <td style={{ border: "1px solid #ccc", padding: "8px", textAlign: "center" }}>
+                                    {entry.score}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </IonContent>
+
         </IonModal>
     )
 }
