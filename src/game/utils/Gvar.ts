@@ -1,6 +1,6 @@
 export const Gvar:any = {
     LoggedUser: {name:""},
-    debug: true,
+    debug: false,
     orientation: "landscape",
     sceneMoveDelay: 500,
     GameData: {

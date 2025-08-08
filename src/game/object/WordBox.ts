@@ -1,3 +1,4 @@
+import { Colors } from "../utils/Colors";
 import { Gvar } from "../utils/Gvar";
 import { TextStyle } from "../utils/TextStyle";
 
@@ -25,19 +26,21 @@ class WordBox extends Phaser.GameObjects.Container{
             case "line-box":
                 label = this.scene.add.text(0, 0, params.text.toString(), TextStyle["word-box"]).setOrigin(0.5);
                 label.setFontSize(fontsize);
+                label.setFill(Colors[`Game-${Gvar.GameData.Id}`]["Sentence"]);
 
                 emptylabel = this.scene.add.text(0, 0, "?", TextStyle["word-box"]).setOrigin(0.5);
                 emptylabel.setFontSize(fontsize).setVisible(false);
+                emptylabel.setFill(Colors[`Game-${Gvar.GameData.Id}`]["Empty"]);
 
                 shapewidth = (params.currenttext == "_") ? emptywidth : (label.displayWidth + 5);
                 shapeheight = Math.floor(fontsize * 1.5);
                 shapestroke = Math.min(shapewidth, shapeheight) / 12;
 
                 shape = this.scene.add.rectangle(0, 0, shapewidth, shapeheight)
-                shape.setFillStyle(0x67a6b6).setOrigin(0.5).setVisible(false);
+                shape.setFillStyle(Colors[`Game-${Gvar.GameData.Id}`]["Line"]).setOrigin(0.5).setVisible(false);
 
                 line = this.scene.add.rectangle(0, 0, shapewidth, shapestroke)
-                line.setFillStyle(0x67a6b6).setOrigin(0.5).setVisible(false);
+                line.setFillStyle(Colors[`Game-${Gvar.GameData.Id}`]["Line"]).setOrigin(0.5).setVisible(false);
                 line.y = shape.y + shape.height * 0.5
 
                 this.add(shape);
@@ -61,7 +64,7 @@ class WordBox extends Phaser.GameObjects.Container{
             case "option-box-rectangle":
                 label = this.scene.add.text(0, 0, params.text.toString(), TextStyle["word-box"]).setOrigin(0.5);
                 label.setFontSize(fontsize);
-                label.setFill("#ffffff");
+                label.setFill(Colors[`Game-${Gvar.GameData.Id}`]["Word"]);
 
                 shapewidth = emptywidth;
                 shapeheight = Math.floor(fontsize * 1.75);
@@ -69,8 +72,8 @@ class WordBox extends Phaser.GameObjects.Container{
                 shapestroke = Math.min(shapewidth, shapeheight) / 20;
 
                 shape = this.scene.add.graphics();
-                shape.fillStyle(0xa22626);
-                shape.lineStyle(shapestroke,0x000000);
+                shape.fillStyle(Colors[`Game-${Gvar.GameData.Id}`]["Options-Box"]);
+                shape.lineStyle(shapestroke,Colors[`Game-${Gvar.GameData.Id}`]["Options-Box-Line"]);
                 shape.fillRoundedRect((-1 * shapewidth * 0.5), (-1 * shapeheight * 0.5), shapewidth, shapeheight, shaperadius);
                 shape.strokeRoundedRect((-1 * shapewidth * 0.5), (-1 * shapeheight * 0.5), shapewidth, shapeheight, shaperadius);
 
