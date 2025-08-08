@@ -26,7 +26,7 @@ const Game: React.FC = () => {
     const gameReady = ()=>{
         ResizePhaserGame(Gvar.platformData.isNative);
     }
-    
+
     useEffect(() => {
         if (hasRun.current) return;
         hasRun.current = true;

@@ -6,5 +6,6 @@ declare global{
         Game: Phaser.Game | undefined;
         selectedGameID: number;
         Sounds: Sounds;
+        openLoginBoard: Function;
     }
 }

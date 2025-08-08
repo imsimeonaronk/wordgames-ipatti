@@ -34,6 +34,11 @@ const Header: React.FC = ()=> {
         
     }
 
+    /* Custom Function */
+    window.openLoginBoard = ()=>{
+        setOpenLogin(true);
+    }
+
     useEffect(()=>{
         
     },[]);

@@ -1,6 +1,6 @@
 import { lsGetItem, lsRemoveItem, lsSetItem } from "../../utils/LocalStorage";
 import Sounds from "../libs/Sounds";
-import { UpdateScore } from "../libs/UserPlay";
+import { ResetFirstVisit, ShouldPromptLogin, UpdateScore } from "../libs/UserPlay";
 import Center from "../object/Center";
 import FpsText from "../object/FPS";
 import LineContainer from "../object/LineContainer";
@@ -239,7 +239,16 @@ class Game1 extends Phaser.Scene{
     private checkresult(){
         this.endGame = true;
         this.gameScore ++; //Game Score increment
+        // Send score to firebase leaderboard
         UpdateScore();
+        // Check for login
+        const loginPrompt = ShouldPromptLogin();
+        if(loginPrompt){
+            ResetFirstVisit();
+            if(window.openLoginBoard){
+                window.openLoginBoard();
+            }
+        }
     }
 
     private movetoscene(sceneName:string){

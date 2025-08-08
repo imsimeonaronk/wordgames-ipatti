@@ -10,6 +10,7 @@ export function UpdateScore(){
 
 // Store user first visit
 export function CheckFirstVisit(){
+    if(!Gvar.LoggedUser.name) return;
     const stored = lsGetItem("firstVisit");
     if (!stored) {
         lsSetItem("firstVisit", new Date().toISOString());
@@ -21,9 +22,10 @@ export function ResetFirstVisit(){
 }
 
 // Prompt login window to user
-export function shouldPromptLogin():boolean{
+export function ShouldPromptLogin():boolean{
     const stored = localStorage.getItem("firstVisit");
-    if (!stored || !Gvar.LoggedUser.name) return false;
+    if (!stored) return false;
+    if (Gvar.LoggedUser.name) return false;
     const daysSinceFirstVisit =(new Date().getTime() - new Date(stored).getTime()) / (1000 * 60 * 60 * 24);
     return daysSinceFirstVisit >= 3;
 };
