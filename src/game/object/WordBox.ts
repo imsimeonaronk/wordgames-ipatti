@@ -15,7 +15,7 @@ class WordBox extends Phaser.GameObjects.Container{
     }
     
     private init(params:WordBoxParsms){
-        const fontsize = Math.floor(Math.min(Gvar.width * 0.05, Gvar.height * 0.05) * Gvar.scaleRatio)
+        const fontsize = Math.floor(Math.min(Gvar.width * 0.04, Gvar.height * 0.04) * Gvar.scaleRatio)
         const emptywidth = Math.min(Math.floor(Gvar.width * 0.4 * Gvar.scaleRatio), Math.floor(Gvar.height * 0.4 * Gvar.scaleRatio))//(label.displayWidth + 5);
         let label, line, shape, emptylabel;
         let shapewidth, shapeheight, shaperadius;
@@ -64,7 +64,7 @@ class WordBox extends Phaser.GameObjects.Container{
                 label.setFill("#ffffff");
 
                 shapewidth = emptywidth;
-                shapeheight = Math.floor(fontsize * 1.5);
+                shapeheight = Math.floor(fontsize * 1.75);
                 shaperadius = Math.min(shapewidth, shapeheight) / 10;
                 shapestroke = Math.min(shapewidth, shapeheight) / 20;
 
