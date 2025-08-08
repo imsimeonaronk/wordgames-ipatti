@@ -1,6 +1,5 @@
-import { lsGetItem, lsRemoveItem, lsSetItem } from "../../utils/LocalStorage";
 import Sounds from "../libs/Sounds";
-import { ResetFirstVisit, ShouldPromptLogin, UpdateScore } from "../libs/UserPlay";
+import { GenerateTaskNumber, ResetFirstVisit, ShouldPromptLogin, UpdateScore } from "../utils/UserPlay";
 import Center from "../object/Center";
 import FpsText from "../object/FPS";
 import LineContainer from "../object/LineContainer";
@@ -21,6 +20,9 @@ class Game1 extends Phaser.Scene{
     private endGame: boolean = false;
 
     private explodeParticle: ExplodeParticle | undefined;
+
+    private currentTask: number = 0;
+    private totalTask: number = 0;
 
     private gameScore: number = 0;
 
@@ -66,16 +68,21 @@ class Game1 extends Phaser.Scene{
         this.startGame = false;
         this.endGame = false;
         this.gameScore = 0;
+        this.currentTask = 0;
+        this.totalTask = 0;
     }
 
     private createscene(){
         const data = this.cache.json.get("game-data");
-        const taskNumber = this.generatetasknumber(Object.keys(data).length);
+        const taskNumber = GenerateTaskNumber(Object.keys(data).length);
         const taskData = data[`TASK${taskNumber}`];
         
         //Task details
         Gvar.consolelog("Task :"+taskNumber)
         Gvar.consolelog(taskData)
+
+        this.currentTask = taskNumber;
+        this.totalTask = Object.keys(data).length;
         
         //Final sentence
         const sentence:string = taskData["SENTENCE"].replace("_",taskData["ANSWER"]);
@@ -139,26 +146,6 @@ class Game1 extends Phaser.Scene{
         },500)
     }
 
-    private generatetasknumber(taskLength:number){
-        const playedTask = lsGetItem(`Game-${Gvar.GameData.Id}-level`);
-        let currentTask = 1;
-        if(!playedTask){
-            const totalTask = Array.from({length: taskLength},(_,i)=> i+1);
-            const filtered = totalTask.filter((n:any) => n!= currentTask);
-            lsSetItem(`Game-${Gvar.GameData.Id}-level`,JSON.stringify(filtered));
-        }else{
-            const savedTask = JSON.parse(playedTask);
-            currentTask = savedTask.splice(0,1)[0];
-            const filtered = savedTask.filter((n:any) => n!= currentTask);
-            lsSetItem(`Game-${Gvar.GameData.Id}-level`,JSON.stringify(filtered));
-            if(!currentTask){ // Loop if there is no task left
-                lsRemoveItem(`Game-${Gvar.GameData.Id}-level`);
-                currentTask = this.generatetasknumber(taskLength);
-            }
-        }
-        return currentTask
-    }
-
     private interactivelistener(flag:boolean){
         const lineContainer: Phaser.GameObjects.Container = this.gameContainer?.getAt(0) as Phaser.GameObjects.Container;
         const sentenceContainer: Phaser.GameObjects.Container = this.gameContainer?.getAt(1) as Phaser.GameObjects.Container;
@@ -212,7 +199,6 @@ class Game1 extends Phaser.Scene{
                     let eldata:WordBox = element.getData('box-text');
                     Gvar.consolelog(dpdata+"  -  "+eldata);
                     if(dpdata == eldata){
-                        console.log(pointer)
                         this.explodeParticle?.explode(pointer);
                         window.Sounds.play("general","correct",()=>{
                             this.startGame = false // Disable game start
@@ -249,6 +235,14 @@ class Game1 extends Phaser.Scene{
                 window.openLoginBoard();
             }
         }
+        //Load Next Task
+        setTimeout(()=>{
+            this.loadnexttask();
+        },500)
+    }
+
+    private loadnexttask(){
+        this.scene.restart();
     }
 
     private movetoscene(sceneName:string){

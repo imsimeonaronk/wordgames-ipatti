@@ -8,7 +8,7 @@ import { Gvar } from '../game/utils/Gvar';
 import { ResizePhaserGame } from '../game/utils/Resize';
 import { Capacitor } from '@capacitor/core';
 import Header from '../components/Header';
-import { CheckFirstVisit } from '../game/libs/UserPlay';
+import { CheckFirstVisit } from '../game/utils/UserPlay';
 import { useUserLogin } from '../context/UserLogin';
 
 function useQuery() {
