@@ -11,15 +11,15 @@ class ExplodeParticle extends Phaser.GameObjects.Container{
     }
 
     public init(){
-        let particlesize = 0.24;
+        let particlesize = 0.12;
         if(Gvar.scaleRatio == 0.68)
-            particlesize = 0.34;
+            particlesize = 0.17;
         this.particles = this.scene.add.particles(0,0,Assets.Sprites.star[0],{
             frame: [
                 'star-1.png', 'star-2.png'
             ],
             lifespan: 3000,
-            speed: { min: 50, max: 300 },
+            speed: { min: 50, max: 200 },
             scale: { start: particlesize, end: 0 },
             rotate: { start: 0, end: 360 },
             gravityY: 600,
