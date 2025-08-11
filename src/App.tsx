@@ -64,6 +64,17 @@ const App: React.FC = () => {
         };
         initializeFirebase();
 
+        // Orientation Change
+        const handleOrientation = ()=>{
+            setTimeout(()=>{
+                window.location.reload();
+            },500);
+        }
+        window.addEventListener('orientationchange', handleOrientation);
+
+        return ()=>{
+            window.removeEventListener('orientationchange', handleOrientation);
+        }
     });
     
     //Font load check

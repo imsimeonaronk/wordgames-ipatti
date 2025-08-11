@@ -1,20 +1,16 @@
-import { ssGetItem } from "../../utils/SessionStorage";
 import FpsText from "../object/FPS";
-import FlatPreloadBar from "../object/Preloader";
 import { Gvar } from "../utils/Gvar";
 import { Scenes } from "../utils/Scenes";
 
-class Boot extends Phaser.Scene{
+class Orientation extends Phaser.Scene{
 
     private sceneClose: boolean = false;
-    private sceneName: string = Scenes.Boot;
+    private sceneName: string = Scenes.Orientation;
     private fpsText: FpsText | undefined;
-
-    private preloaderBar: FlatPreloadBar | undefined;
 
     constructor(){
         super({
-            key: Scenes.Boot
+            key: Scenes.Orientation
         })
     }
 
@@ -26,19 +22,11 @@ class Boot extends Phaser.Scene{
     }
 
     preload(){
-        this.load.path = "assets/data/";
-        this.load.json('game-data',`game-${Gvar.GameData.Id}.json`);
-
-        this.load.path = "assets/image/";
-        this.load.image('device-icon','device.png');
-        this.load.image("ipatti-logo","ipatti_logo.png");
-
-        this.load.path = "assets/font/bitmap/";
-        this.load.bitmapFont('myriadpro-condense','myriadpro-condense.png','myriadpro-condense.xml');
+        
     }
 
     create(){
-        console.log("Boot scene created");
+        console.log("Orientation scene created");
         console.log("Game loaded: "+ Gvar.GameData.Id);
         this.fpsText = new FpsText(this);
     }
@@ -54,27 +42,27 @@ class Boot extends Phaser.Scene{
     }
 
     private createscene(){
-        this.preloaderBar = new FlatPreloadBar(this);
-        this.preloaderBar.setXY(Gvar.centerX, Math.floor(Gvar.height * 0.8));
-        this.preloadlistener();
-    }
+        let device = this.add.image(0,0,'device-icon').setOrigin(0.5,0.5).setScale(0.4)
+        device.x = Gvar.width * 0.5;
+        device.y = Gvar.height * 0.5 - device.displayHeight * 0.2;
 
-    private preloadlistener(){
-        this.load.on('progress', (value:any)=>{
-            this.preloaderBar!.progressValue = Math.floor(value * 1);
-            this.preloaderBar!.updateValue();
-        });
-                    
-        this.load.on('fileprogress', (file:any)=>{
-            
-        });
+        let label = this.add.bitmapText(0, 0, 'myriadpro-condense', 'Please rotate your device', Math.round(Gvar.height * 0.025), Phaser.GameObjects.BitmapText.ALIGN_CENTER).setOrigin(0.5);
+        label.x = device.x
+        label.y = device.y + device.displayHeight * 0.45 + Math.round(Gvar.width * 0.1);
 
-        this.load.on('loaderror', (file:any)=>{
-
-        });
-
-        this.load.on('complete', ()=>{ 
-            this.movetoscene(Scenes.Preload);
+        //Start Animation
+        let rotateTween = this.tweens.add({
+            targets: device,
+            rotation: 90,
+            duration: 1000,
+            delay: 500,
+            repeatDelay: 3000,
+            onUpdate:()=>{
+                device.setAngle(rotateTween.getValue()!);
+            },
+            repeat: -1,
+            yoyo: true,
+            hold: 3000
         });
     }
 
@@ -105,7 +93,7 @@ class Boot extends Phaser.Scene{
 
     private onsceneclear(){
         this.sound.stopAll();
-        this.scene.remove(Scenes.Boot);
+        this.scene.remove(Scenes.Orientation);
     }
 
     private onscenedestroy(){
@@ -131,4 +119,4 @@ class Boot extends Phaser.Scene{
     }
 }
 
-export default Boot;
+export default Orientation;

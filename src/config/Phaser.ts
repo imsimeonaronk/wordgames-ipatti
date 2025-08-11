@@ -13,6 +13,7 @@ import Game9 from "../game/scene/Game9";
 import Game10 from "../game/scene/Game10";
 import Game11 from "../game/scene/Game11";
 import Game12 from "../game/scene/Game12";
+import Orientation from "../game/scene/Orientation";
 
 const gameWidth = window.innerWidth //* window.devicePixelRatio;
 const gameHeight = window.innerHeight //* window.devicePixelRatio;
@@ -31,6 +32,7 @@ export const PhaserGameConfig: Phaser.Types.Core.GameConfig = {
     scene: [
         Boot,
         Preload,
+        Orientation,
         Game1,
         Game2,
         Game3,
