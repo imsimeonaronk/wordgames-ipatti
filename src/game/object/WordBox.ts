@@ -33,7 +33,7 @@ class WordBox extends Phaser.GameObjects.Container{
                 emptylabel.setFill(Colors[`Game-${Gvar.GameData.Id}`]["Empty"]);
 
                 shapewidth = (params.currenttext == "_") ? emptywidth : (label.displayWidth + 5);
-                shapeheight = Math.floor(fontsize * 1.5);
+                shapeheight = (params.currenttext == "_") ? Math.floor(fontsize * 2) : Math.floor(fontsize * 1.5);
                 shapestroke = Math.min(shapewidth, shapeheight) / 12;
 
                 shape = this.scene.add.rectangle(0, 0, shapewidth, shapeheight)
