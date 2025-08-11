@@ -1,8 +1,8 @@
 interface User {
-    uid: string;
-    email: string;
-    displayName?: string;
-    photoURL?: string;
+    uid: string | null;
+    email: string | null;
+    displayName?: string | null;
+    photoURL?: string | null;
 }
 
 export default User

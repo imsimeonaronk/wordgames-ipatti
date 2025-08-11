@@ -3,23 +3,29 @@ import LoginBoardType from "../interface/Loginboard";
 import { FireBase } from "../service/Firebase";
 import { useUserLogin } from "../context/UserLogin";
 import { Gvar } from "../game/utils/Gvar";
+import { useEffect } from "react";
+import User from "../interface/User";
 
 const Loginboard: React.FC<LoginBoardType> = ({isOpen, onDismiss}) => {
     const { user, login, logout } = useUserLogin();
 
+    const userLoggedIn = (user:User)=>{
+        //Login Hook
+        login({
+            uid: user.uid,
+            email: user.email,
+            displayName: user.displayName,
+            photoURL: user.photoURL,
+        });
+        // Update value to the Gvar
+        Gvar.LoggedUser.name = user.displayName;
+        Gvar.LoggedUser.email = user.email;
+    }
+
     const signIn = ()=>{
         FireBase.logIn((success, user)=>{
             if(success){
-                //Login Hook
-                login({
-                    uid: user.uid,
-                    email: user.email,
-                    displayName: user.displayName,
-                    photoURL: user.photoURL,
-                });
-                // Update value to the Gvar
-                Gvar.LoggedUser.name = user.displayName;
-                Gvar.LoggedUser.email = user.email;
+                userLoggedIn(user);
                 //Dismiss panel
                 onDismiss();
             }
@@ -34,6 +40,17 @@ const Loginboard: React.FC<LoginBoardType> = ({isOpen, onDismiss}) => {
             onDismiss();
         });
     }
+
+    useEffect(()=>{
+        // Last logged user
+        const checkUserLogged = async ()=>{
+            const loggedUser: User | null = await FireBase.getUserLogged();
+            if(loggedUser){
+                userLoggedIn(loggedUser);
+            }
+        }
+        checkUserLogged();
+    },[]);
 
     return (
         <IonModal isOpen={isOpen} onDidDismiss={onDismiss}>

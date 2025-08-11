@@ -53,7 +53,7 @@ const App: React.FC = () => {
         // Initialize Firebase & Google
         const initializeFirebase = async () => {
             try {
-                await FireBase.Init().then(() => {
+                await FireBase.Init().then(async () => {
                     console.log("Firebase initialized");
                 }).catch((error) => {
                     console.log("Error initializing Firebase:", error);
