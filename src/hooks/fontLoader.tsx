@@ -10,36 +10,45 @@ const useFontLoader = (): boolean => {
             {
                 family: 'Noto Sans Tamil',
                 sources: [
-                    '/assets/font/native/NotoSansTamil-Bold.woff2',
-                    '/assets/font/native/NotoSansTamil-Bold.woff',
-                    '/assets/font/native/NotoSansTamil-Bold.ttf',
+                    '/assets/font/NotoSansTamil-Bold.woff2',
+                    '/assets/font/NotoSansTamil-Bold.woff',
+                    '/assets/font/NotoSansTamil-Bold.ttf',
                 ],
                 params: { weight: 'bold' }
             },
             {
                 family: 'Noto Sans Tamil',
                 sources: [
-                    '/assets/font/native/NotoSansTamil-SemiBold.woff2',
-                    '/assets/font/native/NotoSansTamil-SemiBold.woff',
-                    '/assets/font/native/NotoSansTamil-SemiBold.ttf',
+                    '/assets/font/NotoSansTamil-SemiBold.woff2',
+                    '/assets/font/NotoSansTamil-SemiBold.woff',
+                    '/assets/font/NotoSansTamil-SemiBold.ttf',
                 ],
                 params: { weight: '600' }
             },
             {
                 family: 'Noto Sans Tamil',
                 sources: [
-                    '/assets/font/native/NotoSansTamil-Medium.woff2',
-                    '/assets/font/native/NotoSansTamil-Medium.woff',
-                    '/assets/font/native/NotoSansTamil-Medium.ttf',
+                    '/assets/font/NotoSansTamil-Medium.woff2',
+                    '/assets/font/NotoSansTamil-Medium.woff',
+                    '/assets/font/NotoSansTamil-Medium.ttf',
                 ],
                 params: { weight: '500' }
             },
             {
                 family: 'Noto Sans Tamil',
                 sources: [
-                    '/assets/font/native/NotoSansTamil-Regular.woff2',
-                    '/assets/font/native/NotoSansTamil-Regular.woff',
-                    '/assets/font/native/NotoSansTamil-Regular.ttf',
+                    '/assets/font/NotoSansTamil-Regular.woff2',
+                    '/assets/font/NotoSansTamil-Regular.woff',
+                    '/assets/font/NotoSansTamil-Regular.ttf',
+                ],
+                params: { weight: 'normal' }
+            },
+            {
+                family: 'KG Blank Space Solid',
+                sources: [
+                    '/assets/font/KGBlankSpaceSolid.woff2',
+                    '/assets/font/KGBlankSpaceSolid.woff',
+                    '/assets/font/KGBlankSpaceSolid.ttf',
                 ],
                 params: { weight: 'normal' }
             }

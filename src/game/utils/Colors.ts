@@ -8,8 +8,9 @@ export const Colors:any = {
         "Options-Box-Line": 0x000000
     },
     "Game-2":{
-        "Sentence": "#595654",
-        "Empty": "#dbdb83",
+        "Top-Word": "#595654",
+        "Empty-Box": 0xdbdb83,
+        "Empty-Box-Line": 0x000000,
         "Empty-Text": "#697028",
         "Word": "#ffffff",
         "Options-Box": 0x656c25,

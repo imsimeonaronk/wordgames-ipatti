@@ -78,8 +78,6 @@ class Preload extends Phaser.Scene{
                 break;
                 case 2:
                     Gvar.consolelog("Preload Game 2 Data");
-                    this.loadimage(taskData["IMAGE"]);
-                    this.loadaudio(taskData["IMAGE-AUDIO"]);
                     this.loadaudio(taskData["ENG-WORD-AUDIO"]);
                     if(taskData["OPTIONS-AUDIO"]){
                         taskData["OPTIONS-AUDIO"].forEach((option:any) => {

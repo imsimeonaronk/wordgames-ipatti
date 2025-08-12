@@ -2,11 +2,13 @@
     "TASK1":{
         "IMAGE": "",
         "IMAGE-AUDIO": "",
-        "ENG-WORD": "",
+        "ENG-WORD": "Exercise",
         "ENG-WORD-AUDIO": "",
-        "ANSWER": "",
+        "ANSWER": "உடற்பயிற்சி",
         "OPTIONS": [
-
+            "காலை",
+            "உடற்பயிற்சி",
+            "எழுந்திரு"
         ],        
         "OPTIONS-AUDIO": [
             

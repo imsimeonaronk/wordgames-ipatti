@@ -60,7 +60,10 @@ class OptionsContainer extends Phaser.GameObjects.Container{
         this.iterate((element:WordBox)=>{
             boxlabel = element.list[1] as Phaser.GameObjects.Text;
             boxlabel.setScale(labelscale);
+            element.setData('box-text-scale',labelscale);
         });
+        // Init variable
+        this.tweensList = [];
     }
 
     public animate(){

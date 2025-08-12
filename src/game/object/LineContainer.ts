@@ -51,6 +51,8 @@ class LineContainer extends Phaser.GameObjects.Container{
                 this.setData("box-empty-bounds",lineword.setData('box-bounds'))
             }
         }
+        // Init variable
+        this.tweensList = [];
     }
 
     public animate(){

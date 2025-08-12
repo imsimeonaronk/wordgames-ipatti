@@ -9,6 +9,9 @@ interface WordBoxParsms{
 }
 
 class WordBox extends Phaser.GameObjects.Container{
+
+    private tweensList: Phaser.Tweens.Tween [] | undefined;
+
     constructor(scene:Phaser.Scene, params:WordBoxParsms){
         super(scene);
         scene.add.existing(this);
@@ -16,6 +19,7 @@ class WordBox extends Phaser.GameObjects.Container{
     }
     
     private init(params:WordBoxParsms){
+        this.tweensList = [];
         const fontsize = Math.floor(Math.min(Gvar.width * 0.04, Gvar.height * 0.04) * Gvar.scaleRatio)
         const emptywidth = Math.min(Math.floor(Gvar.width * 0.4 * Gvar.scaleRatio), Math.floor(Gvar.height * 0.4 * Gvar.scaleRatio))//(label.displayWidth + 5);
         let label, line, shape, emptylabel;
@@ -61,13 +65,51 @@ class WordBox extends Phaser.GameObjects.Container{
                 this.setData('box-empty',(params.currenttext == "_"));
                 this.setData('box-bounds',{width: shape.width, height: shape.height});
             break;
+            case "empty-box-rectangle":
+                label = this.scene.add.text(0, 0, params.text.toString(), TextStyle["word-box"]).setOrigin(0.5);
+                label.setFontSize(fontsize);
+                label.setFill(Colors[`Game-${Gvar.GameData.Id}`]["Word"]);
+
+                emptylabel = this.scene.add.text(0, 0, "?", TextStyle["word-box"]).setOrigin(0.5);
+                emptylabel.setFontSize(fontsize).setVisible(false);
+                emptylabel.setFill(Colors[`Game-${Gvar.GameData.Id}`]["Empty-Text"]);
+
+                shapewidth = emptywidth;
+                shapeheight = Math.floor(fontsize * 2);
+                shaperadius = Math.min(shapewidth, shapeheight) / 10;
+                shapestroke = Math.min(shapewidth, shapeheight) / 20;
+
+                shape = this.scene.add.graphics();
+                shape.fillStyle(Colors[`Game-${Gvar.GameData.Id}`]["Empty-Box"]);
+                shape.lineStyle(shapestroke,Colors[`Game-${Gvar.GameData.Id}`]["Empty-Box-Line"]);
+                shape.fillRoundedRect((-1 * shapewidth * 0.5), (-1 * shapeheight * 0.5), shapewidth, shapeheight, shaperadius);
+                shape.strokeRoundedRect((-1 * shapewidth * 0.5), (-1 * shapeheight * 0.5), shapewidth, shapeheight, shaperadius);
+
+                this.add(shape);
+                this.add(label);
+                this.add(emptylabel);
+
+                // Check empty box
+                if(params.currenttext == "_"){
+                    label.setVisible(false);
+                    emptylabel.setVisible(true);
+                }
+
+                //Reset for animation
+                this.setAlpha(0);
+
+                // Set Data
+                this.setData('box-type',params.type);
+                this.setData('box-text',params.text.toString());
+                this.setData('box-bounds',{width: shapewidth, height: shapeheight});
+            break;
             case "option-box-rectangle":
                 label = this.scene.add.text(0, 0, params.text.toString(), TextStyle["word-box"]).setOrigin(0.5);
                 label.setFontSize(fontsize);
                 label.setFill(Colors[`Game-${Gvar.GameData.Id}`]["Word"]);
 
                 shapewidth = emptywidth;
-                shapeheight = Math.floor(fontsize * 1.75);
+                shapeheight = Math.floor(fontsize * 2);
                 shaperadius = Math.min(shapewidth, shapeheight) / 10;
                 shapestroke = Math.min(shapewidth, shapeheight) / 20;
 
@@ -101,25 +143,68 @@ class WordBox extends Phaser.GameObjects.Container{
                 line.setVisible(false);
                 emptylabel.setVisible(false);
                 label.setVisible(true);
-                this.animate(label, listener);
+                this.animate(label, boxtype, listener);
+            break;
+            case "empty-box-rectangle":
+                this.animate(this, boxtype, listener);
             break;
         }
     }
 
-    private animate(obj:Phaser.GameObjects.GameObject, listener:Function){
+    private animate(obj:Phaser.GameObjects.GameObject, boxtype: string, listener:Function){
         if(!obj)return;
-        this.scene.tweens.add({
-            targets: obj,
-            scale: 1.2,
-            yoyo: true,
-            delay: 500,
-            duration: 500,
-            onComplete: ()=>{
-                listener();
-            }
-        });
+        switch(boxtype){
+            case "line-box":
+                this.reset(false);
+                this.scene.tweens.add({
+                    targets: obj,
+                    scale: 1.2,
+                    yoyo: true,
+                    delay: 500,
+                    duration: 500,
+                    onComplete: ()=>{
+                        listener();
+                    }
+                });
+            break;
+            case "empty-box-rectangle":
+                this.reset(true);
+                const yTween = this.scene.tweens.add({
+                    targets: this,
+                    y: (this.y - 5),
+                    yoyo: true,
+                    delay: 700,
+                    duration: 500
+                });
+                this.tweensList?.push(yTween);
+                const alphaTween = this.scene.tweens.add({
+                    targets: this,
+                    alpha: 1,
+                    delay: 700,
+                    duration: 500,
+                    onComplete: ()=>{
+                        listener();
+                    }
+                });
+                this.tweensList?.push(alphaTween);
+            break;
+        }
     }
 
+    private reset(flag:boolean){
+        this.resetTween();
+        if(flag)
+            this.setAlpha(0);
+    }
+
+    private resetTween(){
+        if(this.tweensList){
+            this.tweensList.forEach((element:Phaser.Tweens.Tween)=>{
+                element.stop();
+                element.destroy();
+            });
+        }
+    }
 }
 
 export default WordBox;
