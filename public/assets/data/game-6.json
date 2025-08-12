@@ -2,11 +2,14 @@
     "TASK1":{
         "IMAGE": "",
         "IMAGE-AUDIO": "",
-        "SENTENCE": "",
+        "SENTENCE": "வாழிய என்பதன் பொருள் _",
         "SENTENCE-AUDIO": "",
-        "ANSWER": "",
+        "ANSWER": "வாழ்க",
         "OPTIONS": [
-
+            "கடுமை",
+            "வலிமை",
+            "வளம்",
+            "வாழ்க"
         ],        
         "OPTIONS-AUDIO": [
             

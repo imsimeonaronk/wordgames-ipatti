@@ -61,7 +61,7 @@ class WordBox extends Phaser.GameObjects.Container{
 
                 // Set Data
                 this.setData('box-type',params.type);
-                this.setData('box-text',params.text.toString());
+                this.setData('box-text',this.trimText(params.text));
                 this.setData('box-empty',(params.currenttext == "_"));
                 this.setData('box-bounds',{width: shape.width, height: shape.height});
             break;
@@ -100,7 +100,7 @@ class WordBox extends Phaser.GameObjects.Container{
 
                 // Set Data
                 this.setData('box-type',params.type);
-                this.setData('box-text',params.text.toString());
+                this.setData('box-text',this.trimText(params.text));
                 this.setData('box-bounds',{width: shapewidth, height: shapeheight});
             break;
             case "option-box-rectangle":
@@ -124,7 +124,7 @@ class WordBox extends Phaser.GameObjects.Container{
 
                 // Set Data
                 this.setData('box-type',params.type);
-                this.setData('box-text',params.text.toString());
+                this.setData('box-text',this.trimText(params.text));
                 this.setData('box-bounds',{width: shapewidth, height: shapeheight});
             break;
         }
@@ -204,6 +204,10 @@ class WordBox extends Phaser.GameObjects.Container{
                 element.destroy();
             });
         }
+    }
+
+    private trimText(txt:string){
+        return txt.trim().replace(/[.?!]/g, "");
     }
 }
 
