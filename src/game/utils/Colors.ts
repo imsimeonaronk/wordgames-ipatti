@@ -46,7 +46,7 @@ export const Colors:any = {
         "Options-Box-Line": 0x000000
     },
     "Game-7":{
-        "Sentence": "#3f7189",
+        "Top-Word": "#3f7189",
         "Word": "#ffffff",
         "Options-Box": 0xdb788c,
         "Options-Box-Select": 0xb0131e,

@@ -5,6 +5,10 @@ import FpsText from "../object/FPS";
 import { Gvar } from "../utils/Gvar";
 import ExplodeParticle from "../utils/Particles";
 import { Scenes } from "../utils/Scenes";
+import TopText from "../object/TopText";
+import { Colors } from "../utils/Colors";
+import WordBox from "../object/WordBox";
+import OptionsContainer from "../object/OptionsContainer";
 
 class Game7 extends Phaser.Scene{
 
@@ -15,6 +19,7 @@ class Game7 extends Phaser.Scene{
     private gameContainer: Phaser.GameObjects.Container | undefined;
     private startGame: boolean = false;
     private endGame: boolean = false;
+    private answerText: string = "";
 
     private explodeParticle: ExplodeParticle | undefined;
 
@@ -67,6 +72,7 @@ class Game7 extends Phaser.Scene{
         this.gameScore = 0;
         this.currentTask = 0;
         this.totalTask = 0;
+        this.answerText = "";
     }
 
     private createscene(){
@@ -80,12 +86,82 @@ class Game7 extends Phaser.Scene{
 
         this.currentTask = taskNumber;
         this.totalTask = Object.keys(data).length;
+
+        this.answerText = taskData["ANSWER"];
         
-        
+        //Game container
+        this.gameContainer = this.add.container();
+        let topWord, optionsContainer;
+
+        //Word
+        topWord = new TopText(this,{
+            text: taskData["TEXT"],
+            textstyle: "top-text",
+            textsize: Math.floor(Math.min(Gvar.width * 0.06, Gvar.height * 0.06) * Gvar.scaleRatio),
+            color: Colors["Game-7"]["Top-Word"],
+            onComplete: ()=>{
+                Gvar.consolelog("Top Text Animate end");
+                optionsContainer!.animate();
+            }
+        });
+        topWord.x = Gvar.centerX;
+        topWord.y = Math.floor(Gvar.height * 0.25);
+        this.gameContainer?.add(topWord);
+
+        //Options
+        optionsContainer = new OptionsContainer(this,{
+            shape: "option-box-tap-rectangle",
+            text: taskData["OPTIONS"],
+            onComplete: ()=>{
+                Gvar.consolelog("Option Animate end");
+                // Start game play
+                this.startGame = true;
+                this.interactivelistener(true);
+            }
+        });
+        optionsContainer.x = Gvar.centerX - optionsContainer.contentWidth 
+        optionsContainer.y = Math.floor(Gvar.height * 0.7) //Math.floor(Gvar.height * 0.75)
+        this.gameContainer?.add(optionsContainer);
+
+        // Start game
+        setTimeout(()=>{
+            topWord.animate();
+        },500)
     }
 
     private interactivelistener(flag:boolean){
-        
+        const optionContainer: Phaser.GameObjects.Container = this.gameContainer?.getAt(1) as Phaser.GameObjects.Container;
+        optionContainer.iterate((element:any) => {
+            if(flag){
+                let bounds = element.getData("box-bounds");
+                element.setInteractive({
+                    hitArea: new Phaser.Geom.Rectangle((0-bounds.width*0.5),(0-bounds.height*0.5),bounds.width,bounds.height), 
+                    hitAreaCallback: Phaser.Geom.Rectangle.Contains,
+                    dropZone: true
+                });
+                element.on("pointerdown",(pointer:Phaser.Input.Pointer)=>{
+                    const eldata: string = element.getData('box-text');
+                    const dpdata: string = this.answerText;
+                    Gvar.consolelog(dpdata+"  -  "+eldata);
+                    if(dpdata == eldata){
+                        this.explodeParticle?.explode(pointer);
+                        window.Sounds.play("general","correct",()=>{
+                            this.startGame = false // Disable game start
+                        });
+                        element.reform(()=>{
+                            setTimeout(()=>{
+                                this.checkresult();
+                            },500);
+                        });
+                    }else{
+                        window.Sounds.play("general","wrong",()=>{});
+                    }
+                })
+            }else{
+                element.setInteractive(false);
+                element.input.dropZone = false;
+            }
+        });
     }
 
     private checkresult(){

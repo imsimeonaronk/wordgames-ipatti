@@ -35,20 +35,21 @@ class LineContainer extends Phaser.GameObjects.Container{
         for(let i=0;i<words.length;i++){
             let word = words[i];
             let lineword:WordBox = new WordBox(this.scene,{type:"line-box", text: word[1], currenttext: word[0]});
-            lineword.x = xpos + lineword.getData('box-bounds').width * 0.5;
+            const boxwidth = lineword.getData("box-bounds").width;
+            const boxheight = lineword.getData("box-bounds").height;
+            lineword.x = xpos + boxwidth * 0.5;
             lineword.y = ypos;
-            lineword.setData('bdata',[i, word]);
-            xpos = lineword.x + lineword.getData('box-bounds').width * 0.5 + Math.floor(this.space * 0.5);
+            xpos = lineword.x + boxwidth * 0.5 + Math.floor(this.space * 0.5);
             //New Line
             if(xpos > Math.floor(Gvar.width * 0.85)){
                 xpos = 0;
-                ypos = ypos + lineword.getData('box-bounds').height + Math.floor(this.space * 0.6);
+                ypos = ypos + boxheight + Math.floor(this.space * 0.6);
             }
             this.add(lineword);
             // Set Data
             lineword.setData('box-position',{x: lineword.x, y: lineword.y});
             if(lineword.getData('box-empty')){
-                this.setData("box-empty-bounds",lineword.setData('box-bounds'))
+                this.setData("box-empty-bounds",lineword.getData('box-bounds'))
             }
         }
         // Init variable

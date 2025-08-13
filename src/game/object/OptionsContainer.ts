@@ -30,7 +30,7 @@ class OptionsContainer extends Phaser.GameObjects.Container{
         let xpos = 0, ypos = 0, labelscale = 1;
         let boxwidth = 0, boxheight = 0, boxlabel;
         for(let k=0; k<optionsText.length; k++){
-            let box:WordBox = new WordBox(this.scene,{text: optionsText[k], type: "option-box-rectangle", currenttext: ""});
+            let box:WordBox = new WordBox(this.scene,{text: optionsText[k], type: this.params!.shape || "option-box-rectangle", currenttext: ""});
             if(boxwidth == 0){
                 boxwidth = box.getData("box-bounds").width;
                 boxheight = box.getData("box-bounds").height;
@@ -53,12 +53,12 @@ class OptionsContainer extends Phaser.GameObjects.Container{
             // Set data
             box.setData('box-position',{x: box.x, y: box.y});
             // Uniform scale text inside box
-            boxlabel = box.list[1] as Phaser.GameObjects.Text;
+            boxlabel = box.list[box.getData('box-label-index')] as Phaser.GameObjects.Text;
             labelscale = Math.min(labelscale, Math.min((boxwidth* 0.90)/boxlabel.displayWidth, (boxheight * 0.80)/boxlabel.displayHeight));
         }
         // Update Label Text with Uniform Scale
         this.iterate((element:WordBox)=>{
-            boxlabel = element.list[1] as Phaser.GameObjects.Text;
+            boxlabel = element.list[element.getData('box-label-index')] as Phaser.GameObjects.Text;
             boxlabel.setScale(labelscale);
             element.setData('box-text-scale',labelscale);
         });

@@ -118,7 +118,7 @@ class Game2 extends Phaser.Scene{
 
         //Options
         optionsContainer = new OptionsContainer(this,{
-            shape: "rectangle",
+            shape: "option-box-rectangle",
             text: taskData["OPTIONS"],
             onComplete: ()=>{
                 Gvar.consolelog("Option Animate end");
@@ -151,7 +151,7 @@ class Game2 extends Phaser.Scene{
         if(flag){
             let bounds = emptyBox.getData('box-bounds');
             emptyBox.setInteractive({
-                hitArea: new Phaser.Geom.Rectangle((0),(0-bounds.height*0.5),bounds.width,bounds.height), 
+                hitArea: new Phaser.Geom.Rectangle((0-bounds.width*0.5),(0-bounds.height*0.5),bounds.width,bounds.height), 
                 hitAreaCallback: Phaser.Geom.Rectangle.Contains,
                 dropZone: true
             });
@@ -163,7 +163,7 @@ class Game2 extends Phaser.Scene{
         //Drag Zone
         optionContainer.iterate((element:any) => {
             if(flag){
-                let bounds = element.getBounds();
+                let bounds = element.getData("box-bounds");
                 element.setInteractive({
                     hitArea: new Phaser.Geom.Rectangle((0-bounds.width*0.5),(0-bounds.height*0.5),bounds.width,bounds.height), 
                     hitAreaCallback: Phaser.Geom.Rectangle.Contains,

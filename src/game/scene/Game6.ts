@@ -83,6 +83,7 @@ class Game6 extends Phaser.Scene{
 
         this.currentTask = taskNumber;
         this.totalTask = Object.keys(data).length;
+        
         //Final sentence
         const sentence:string = taskData["SENTENCE"].replace("_",taskData["ANSWER"]);
         let finalsentence = sentence.trim();
@@ -125,7 +126,7 @@ class Game6 extends Phaser.Scene{
 
         //Options
         optionsContainer = new OptionsContainer(this,{
-            shape: "rectangle",
+            shape: "option-box-rectangle",
             text: taskData["OPTIONS"],
             onComplete: ()=>{
                 Gvar.consolelog("Option Animate end");
@@ -152,12 +153,13 @@ class Game6 extends Phaser.Scene{
 
         //Drop Zone
         lineContainer.iterate((element:any) => {
+            console.log(element)
             const isempty = element.getData("box-empty");
             if(!isempty) return;
             if(flag){
-                let bounds = element.getBounds();
+                let bounds = element.getData("box-bounds");
                 element.setInteractive({
-                    hitArea: new Phaser.Geom.Rectangle((0),(0-bounds.height*0.5),bounds.width,bounds.height), 
+                    hitArea: new Phaser.Geom.Rectangle((0-bounds.width*0.5),(0-bounds.height*0.5),bounds.width,bounds.height), 
                     hitAreaCallback: Phaser.Geom.Rectangle.Contains,
                     dropZone: true
                 });
@@ -170,7 +172,7 @@ class Game6 extends Phaser.Scene{
         //Drag Zone
         optionContainer.iterate((element:any) => {
             if(flag){
-                let bounds = element.getBounds();
+                let bounds = element.getData("box-bounds");
                 element.setInteractive({
                     hitArea: new Phaser.Geom.Rectangle((0-bounds.width*0.5),(0-bounds.height*0.5),bounds.width,bounds.height), 
                     hitAreaCallback: Phaser.Geom.Rectangle.Contains,
