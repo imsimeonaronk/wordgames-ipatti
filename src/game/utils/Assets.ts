@@ -1,6 +1,6 @@
 export const Assets:any = {
     Images:{
-        
+        "speakerbtn": ["speakerbtn-img", "speakerbtn.png"]
     },
     Sprites:{
         "star": ["star-spr", "star.png", "star.json"],

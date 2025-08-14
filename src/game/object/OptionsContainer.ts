@@ -39,15 +39,13 @@ class OptionsContainer extends Phaser.GameObjects.Container{
             box.y = ypos;
             xpos = xpos + boxwidth + (this.space * 0.5);
             if((k+1)%column == 0){
+                this.contentWidth = Math.max((xpos - (this.space * 0.5)),this.contentWidth);
+                // Row
                 xpos = 0;
                 if((k+2) == optionsText.length){
                     xpos = boxwidth * 0.5 + (this.space * 0.5);
                 }
                 ypos = ypos + boxheight + (this.space * 0.5);
-            }else{
-                if((k+1) < column){
-                    this.contentWidth += xpos - (this.space * 0.25);
-                }
             }
             this.add(box);
             // Set data
@@ -64,6 +62,8 @@ class OptionsContainer extends Phaser.GameObjects.Container{
         });
         // Init variable
         this.tweensList = [];
+        console.log(this.contentWidth)
+        console.log(this.getBounds().width)
     }
 
     public animate(){

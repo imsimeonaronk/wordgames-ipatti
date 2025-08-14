@@ -85,9 +85,11 @@ export const Colors:any = {
         "Word": 0x000000,
     },
     "Game-11":{
-        "Text-Frame": "#e5e59c",
-        "Text-Line": "#656c25",
-        "Word": "#656c25",
+        "Sentence": "#656c25",
+        "Line": 0x656c25,
+        "Empty": "#656c25",
+        "Text-Frame": 0xe5e59c,
+        "Word": "#FFFFFF",
         "Options-Box": 0x595654,
         "Options-Box-Line": 0x000000
     },

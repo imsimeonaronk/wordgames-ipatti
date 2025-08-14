@@ -127,7 +127,7 @@ class Game2 extends Phaser.Scene{
                 this.interactivelistener(true);
             }
         })
-        optionsContainer.x = Gvar.centerX - optionsContainer.contentWidth 
+        optionsContainer.x = Gvar.centerX - optionsContainer.contentWidth * 0.5
         optionsContainer.y = Math.floor(Gvar.height * 0.75) //Math.floor(Gvar.height * 0.75)
         this.gameContainer?.add(optionsContainer);
 

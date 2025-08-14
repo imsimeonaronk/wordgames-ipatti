@@ -31,7 +31,7 @@ class Preload extends Phaser.Scene{
     preload(){
         
         //Load Images
-        this.load.path = "assets/images/";
+        this.load.path = "assets/image/";
         for(const key in Assets.Images){
             this.load.image(Assets.Images[key][0],Assets.Images[key][1])
         }
