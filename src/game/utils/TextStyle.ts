@@ -8,6 +8,7 @@ export const TextStyle:any = {
         align: 'center',
         rtl: false,
         color: '#67a6b6',
+        backgroundColor: 'rgba(0,0,0,0)',
         padding: {
             left: 0,
             right: 0,
@@ -22,6 +23,7 @@ export const TextStyle:any = {
         align: 'center',
         rtl: false,
         color: '#67a6b6',
+        backgroundColor: 'rgba(0,0,0,0)',
         padding: {
             left: 0,
             right: 0,
@@ -36,6 +38,7 @@ export const TextStyle:any = {
         align: 'center',
         rtl: false,
         color: '#67a6b6',
+        backgroundColor: 'rgba(0,0,0,0)',
         padding: {
             left: 0,
             right: 0,
@@ -43,4 +46,18 @@ export const TextStyle:any = {
             bottom: 6,
         },
     },
+    'slide-puzzle':{
+        fontFamily: 'Noto Sans Tamil',
+        fontStyle: 'normal',
+        fontSize: `100px`,
+        align: 'center',
+        rtl: false,
+        backgroundColor: 'rgba(0,0,0,0)',
+        padding: {
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: 6,
+        },
+    }
 }

@@ -56,7 +56,7 @@ export class MatchBoxContainer extends Phaser.GameObjects.Container{
 
     private getSize(shape:string, count:number){
         const maxWidth = (Gvar.width * 0.4 * Gvar.scaleRatio), maxHeight = (Gvar.height * 0.8 * Gvar.scaleRatio);
-        const space = Math.floor(Gvar.height * this.params.space * Gvar.scaleRatio)
+        const space = Math.floor(Gvar.height * this.params.space) //* Gvar.scaleRatio
         const avgHeight = (maxHeight - (space * (count-1))) / count;
         if(shape == "square"){
             return [Math.floor(avgHeight * 0.95), Math.floor(avgHeight * 0.95), space]
@@ -164,7 +164,7 @@ export class MatchPointContainer extends Phaser.GameObjects.Container{
     private init(){
         const radiusValue = Math.min(Math.floor(Gvar.width * 0.025), Math.floor(Gvar.height * 0.025));
         const radius = Math.floor(radiusValue * Gvar.scaleRatio);
-        const space = Math.floor(Gvar.height * this.params!.space * Gvar.scaleRatio)
+        const space = Math.floor(Gvar.height * this.params!.space) //* Gvar.scaleRatio
         let ypos = 0;
         for(let i=0; i<this.params!.data.length; i++){
             const data = this.params!.data[i] as any

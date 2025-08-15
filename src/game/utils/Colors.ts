@@ -95,7 +95,7 @@ export const Colors:any = {
         "Options-Box-Line": 0x000000
     },
     "Game-12":{
-        "Board": "#58b5c4",
+        "Board":0x58b5c4,
         "Correct": "#c0c657",
         "Text": "#ffffff",
         "Options-Box": 0xdb788c,

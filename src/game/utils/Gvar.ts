@@ -1,12 +1,15 @@
 export const Gvar:any = {
     LoggedUser: {name:""},
-    debug: true,
+    debug: false,
     orientation: "landscape",
     sceneMoveDelay: 500,
     GameData: {
         Id: 0,
     },
     platformData: {},
+    fontPadding:{
+        "noto-tamil":[0,0.35,0,0.35]
+    },
     fileextension:(str:any)=>{
         if(str && str != ""){
             let n = str.lastIndexOf(".");
@@ -34,5 +37,16 @@ export const Gvar:any = {
         if(Gvar.debug){
             console.log(message)
         }
-    }
+    },
+    getradius:(fw:number,fh:number,cratio:number = 0.15)=>{
+        let radius = Math.sqrt(Math.pow(fw,2)+Math.pow(fh,2)) / 2;
+        let corner = Math.floor(radius * cratio);
+        return [radius, corner];
+    },
+    setfontpading:function(type:string,txt:any,fsize:number){
+        const padding = this.fontPadding[type];
+        if(padding){
+            txt.setPadding(fsize * padding[0], fsize * padding[1], fsize * padding[2], fsize * padding[3]);
+        }
+    },
 }
