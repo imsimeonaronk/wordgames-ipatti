@@ -403,8 +403,15 @@ class Game12 extends Phaser.Scene{
                     const nearempty = this.findnearempty(textctr,element);
                     if(nearempty){
                         element.setData('grid-index', [nearempty!.grid[0], nearempty!.grid[1]]);
-                        element.x = nearempty!.pos[0];
-                        element.y = nearempty!.pos[1];
+                        this.tweens.add({
+                            targets: element,
+                            x: nearempty!.pos[0],
+                            y: nearempty!.pos[1],
+                            duration: 500,
+                            delay: 100
+                        })
+                        //element.x = nearempty!.pos[0];
+                        //element.y = nearempty!.pos[1];
                         this.checkboard([element.getData('child-index'),element.getData('grid-index'),[element.x, element.y]],pointer);
                     }else{
 
