@@ -2,36 +2,36 @@
     "TASK1": {
         "LEFT": [
             {
-                "TEXT": "",
+                "TEXT": "கொத்தாகக் காய்க்கும்",
                 "IMAGE": "",
-                "AUDIO": ""
+                "AUDIO": "broadbeans_1.mp3"
             },
             {
                 "TEXT": "",
-                "IMAGE": "",
-                "AUDIO": ""
+                "IMAGE": "snake_gourd.png",
+                "AUDIO": "snakegourd_1.mp3"
             },
             {
                 "TEXT": "",
-                "IMAGE": "",
-                "AUDIO": ""
+                "IMAGE": "brinjal.png",
+                "AUDIO": "brinjal_1.mp3"
             }
         ],
         "RIGHT": [
             {
-                "TEXT": "",
-                "IMAGE": "",
-                "AUDIO": ""
+                "TEXT": "கொத்தாகக் காய்க்கும்",
+                "IMAGE": "broadbeans.png",
+                "AUDIO": "broadbeans_2.mp3"
             },
             {
-                "TEXT": "",
-                "IMAGE": "",
-                "AUDIO": ""
+                "TEXT": "நீளமானது",
+                "IMAGE": "snake_gourd.png",
+                "AUDIO": "snakegourd_2.mp3"
             },
             {
-                "TEXT": "",
+                "TEXT": "காம்பு நீண்டது",
                 "IMAGE": "",
-                "AUDIO": ""
+                "AUDIO": "brinjal_2.mp3"
             }
         ],
         "LEFT-BOX-SHAPE": "square",

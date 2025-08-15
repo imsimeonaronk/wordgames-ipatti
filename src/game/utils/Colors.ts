@@ -17,11 +17,12 @@ export const Colors:any = {
         "Options-Box-Line": 0x000000
     },
     "Game-3":{
-        "Image-Box": 0xffffff,
-        "Image-Box-Line": 0x000000,
+        "Match-Box": 0xffffff,
+        "Match-Box-Line": 0x000000,
         "Word": "#ffffff",
         "Options-Box": 0x3f7189,
-        "Options-Box-Line": 0x000000
+        "Options-Box-Line": 0x000000,
+        "Dot": 0xffff00,
     },
     "Game-4":{
         "Word": "#c62a39",
