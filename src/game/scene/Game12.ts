@@ -116,8 +116,8 @@ class Game12 extends Phaser.Scene{
         this.gameContainer = this.add.container();
         
         // Box size
-        const baseBoxSize = Math.floor(200 * Gvar.scaleRatio);
-        const baseBoxSpace = Math.floor(15 * Gvar.scaleRatio);
+        const baseBoxSize = Math.floor(350 * Gvar.scaleRatio);
+        const baseBoxSpace = Math.floor(20);
 
         let boxSize = baseBoxSize;
 

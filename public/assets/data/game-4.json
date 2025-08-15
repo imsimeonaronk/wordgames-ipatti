@@ -1,10 +1,18 @@
 {
     "TASK1":{
-        "WORD": "",
+        "WORD": "கத்தரிக்காய்",
         "WORD-AUDIO": "",
-        "ANSWER": "",
+        "ANSWER": "brinjal_2",
         "OPTIONS-IMAGE": [
-
+            "broadbeans.png",
+            "snake_gourd.png",
+            "brinjal_2.png",
+            "broadbeans.png",
+            "snake_gourd.png",
+            "brinjal_2.png",
+            "broadbeans.png",
+            "snake_gourd.png",
+            "brinjal_2.png"
         ],        
         "OPTIONS-AUDIO": [
             
